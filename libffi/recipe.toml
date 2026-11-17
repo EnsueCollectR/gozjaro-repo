@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/libffi/libffi/releases/download/vVERSION/libffi-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://github.com/libffi/libffi/releases/download/v$VERSION/libffi-$VERSION.tar.gz", sha256 = "" },
 ]
 patches = []
 

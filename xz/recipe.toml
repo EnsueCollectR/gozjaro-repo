@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/tukaani-project/xz/releases/download/vVERSION/xz-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://github.com/tukaani-project/xz/releases/download/v$VERSION/xz-$VERSION.tar.xz", sha256 = "" },
 ]
 patches = []
 

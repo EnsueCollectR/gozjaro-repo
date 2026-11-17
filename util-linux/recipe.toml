@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://www.kernel.org/pub/linux/utils/util-linux/vMAJOR.MINOR/util-linux-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://www.kernel.org/pub/linux/utils/util-linux/v$MAJOR.$MINOR/util-linux-$VERSION.tar.xz", sha256 = "" },
 ]
 patches = []
 

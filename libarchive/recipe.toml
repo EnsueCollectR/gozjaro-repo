@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/libarchive/libarchive/releases/download/vVERSION/libarchive-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://github.com/libarchive/libarchive/releases/download/v$VERSION/libarchive-$VERSION.tar.xz", sha256 = "" },
 ]
 patches = []
 

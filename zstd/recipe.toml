@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/facebook/zstd/releases/download/vVERSION/zstd-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://github.com/facebook/zstd/releases/download/v$VERSION/zstd-$VERSION.tar.gz", sha256 = "" },
 ]
 patches = []
 

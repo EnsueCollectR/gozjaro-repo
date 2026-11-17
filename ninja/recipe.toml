@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/ninja-build/ninja/archive/vVERSION/ninja-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://github.com/ninja-build/ninja/archive/v$VERSION/ninja-$VERSION.tar.gz", sha256 = "" },
 ]
 patches = []
 

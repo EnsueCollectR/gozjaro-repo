@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://sourceware.org/ftp/elfutils/MAJOR.MINOR/elfutils-$VERSION.tar.bz2", sha256 = "" },
+    { url = "https://sourceware.org/ftp/elfutils/$MAJOR.$MINOR/elfutils-$VERSION.tar.bz2", sha256 = "" },
 ]
 patches = []
 

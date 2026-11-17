@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/besser82/libxcrypt/releases/download/vVERSION/libxcrypt-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://github.com/besser82/libxcrypt/releases/download/v$VERSION/libxcrypt-$VERSION.tar.xz", sha256 = "" },
 ]
 patches = []
 
