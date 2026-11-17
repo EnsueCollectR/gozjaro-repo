@@ -1,0 +1,26 @@
+[package]
+name = "linux-firmware"
+version = "20261019"
+release = 1
+desc = "Mainline Linux kernel firmware blobs (kernel.org snapshot)"
+license = "Mixed (per-file; see repo)"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.kernel.org/pub/linux/kernel/firmware/linux-firmware-$VERSION.tar.xz", sha256 = "a10d1ab5baf2c74ba92e8c7cf313e691696c26bddfa6df00db795e48d70cd4ca" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "install -d \"$DESTDIR/lib/firmware\"",
+    "for entry in *; do case \"$entry\" in tools|ChangeLog|README|LICENSE) ;; *) cp -a \"$entry\" \"$DESTDIR/lib/firmware/\";; esac; done",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

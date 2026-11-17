@@ -61,7 +61,6 @@ bash
 util-linux
 e2fsprogs
 man-db
-kmod
 systemd
 iproute2
 openssh
@@ -74,4 +73,6 @@ inetutils
 gozpak
 vim
 dbus
-libarchive
+linux-headers
+linux-firmware
+linux

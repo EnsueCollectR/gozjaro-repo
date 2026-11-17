@@ -1,0 +1,33 @@
+[package]
+name = "linux"
+version = "7.2.5"
+release = 1
+desc = "Linux kernel (bzImage + modules)"
+license = "GPL-2.0-only"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.kernel.org/pub/linux/kernel/v7.x/linux-$VERSION.tar.xz", sha256 = "55ddf0df8325d9dad96fcff7bd93977d22e3f50af06527572af59b77c7632b78" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "cp -f configs/gozjaro.config ./.config",
+    "make -j$(nproc) olddefconfig",
+    "make -j$(nproc) -s",
+    "install -d \"$DESTDIR/boot\"",
+    "install -m644 arch/x86/boot/bzImage \"$DESTDIR/boot/vmlinuz-$VERSION\"",
+    "install -m644 System.map \"$DESTDIR/boot/System.map-$VERSION\"",
+    "install -m644 .config \"$DESTDIR/boot/config-$VERSION\"",
+    "make -j$(nproc) -s modules_install INSTALL_MOD_PATH=\"$DESTDIR\" INSTALL_MOD_STRIP=1",
+    "make -s firmware_install INSTALL_FW_PATH=\"$DESTDIR/lib/firmware\" || true",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
