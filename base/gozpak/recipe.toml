@@ -1,32 +1,29 @@
 [package]
 name = "gozpak"
 version = "6.0.0"
-release = 2
-desc = "Package manager for Gozjaro Linux (Rust)"
+release = 1
+desc = "GozJaro package manager (Rust; self-management meta package)"
 license = "MIT"
-depends = ["curl", "openssl"]
-build_depends = []
+depends = []
+build_depends = ["rust"]
 
-# The Rust gozpak ships as a prebuilt x86_64 binary from the
-# Gozjaro/gozpak `stable` release (built on the compile box). The
-# sha256 pin makes the build deterministic: re-publishing `stable`
-# changes these bytes and forces a recipe revision bump.
 [source]
-urls = [
-    { url = "https://github.com/Gozjaro/gozpak/releases/download/stable/gozpak-x86_64-unknown-linux-gnu", sha256 = "6068e6a8fe74951b86ff915964a55f1f5d9ba8d431844267ba4cb917f98dc774" },
-]
+git = "git+https://github.com/Gozjaro/gozpak.git#8340afdd521fe4875a6fae085704cd3e559d8b0f"
 patches = []
 
 [build]
 system = "raw"
 steps = [
-    "install -Dm755 gozpak-x86_64-unknown-linux-gnu \"$DESTDIR/usr/bin/gozpak\"",
-    "# default directories",
-    "mkdir -p \"$DESTDIR/etc/gozpak\"",
-    "mkdir -p \"$DESTDIR/var/db/gozpak/installed\"",
+    "# cargo release build (glibc-dynamic binary)",
+    "cd rs && \"$HOME/.cargo/bin/cargo\" build --release --bin gozpak",
+    "install -Dm755 rs/target/release/gozpak \"$DESTDIR/usr/bin/gozpak\"",
+    "install -Dm644 LICENSE \"$DESTDIR/usr/share/licenses/gozpak/LICENSE\"",
 ]
 
 [install]
 post = []
 files = "auto"
 backup = []
+
+[meta]
+type = "tool"
