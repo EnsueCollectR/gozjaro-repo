@@ -1,6 +1,6 @@
 --- a/Modules/_ssl.c
 +++ b/Modules/_ssl.c
-@@ -137,13 +137,13 @@
+@@ -137,16 +137,16 @@
  #endif
  
  /* OpenSSL API 1.1.0+ does not include version methods */
@@ -16,7 +16,11 @@
 +#if !defined(OPENSSL_NO_TLS1_1_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L
  extern const SSL_METHOD *TLSv1_1_method(void);
  #endif
- #ifndef OPENSSL_NO_TLS1_2_METHOD
+-#ifndef OPENSSL_NO_TLS1_2_METHOD
++#if !defined(OPENSSL_NO_TLS1_2_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L
+ extern const SSL_METHOD *TLSv1_2_method(void);
+ #endif
+ 
 @@ -252,7 +252,7 @@
   * available version, and the other way around. We have to figure out the
   * minimum and maximum available version on our own and hope for the best.
@@ -53,7 +57,33 @@
      case PY_SSL_VERSION_TLS1_1:
          PY_SSL_DEPRECATED("ssl.PROTOCOL_TLSv1_1 is deprecated", 2, NULL);
          method = TLSv1_1_method();
-@@ -6702,7 +6702,7 @@
+@@ -3221,12 +3221,24 @@
+ #endif
+ #if (defined(TLS1_2_VERSION) && \
+         !defined(OPENSSL_NO_TLS1_2) && \
+-        !defined(OPENSSL_NO_TLS1_2_METHOD))
++        !defined(OPENSSL_NO_TLS1_2_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L)
+     case PY_SSL_VERSION_TLS1_2:
+         PY_SSL_DEPRECATED("ssl.PROTOCOL_TLSv1_2 is deprecated", 2, NULL);
+         method = TLSv1_2_method();
+         break;
+ #endif
++#if OPENSSL_VERSION_NUMBER >= 0x40000000L
++    /* OpenSSL 4.x removed the version-specific *_method() entry points.
++       Map the fixed-version protocols to the auto-negotiating TLS_method()
++       so PROTOCOL_TLSv1_2 (and the deprecated SSLv3/TLSv1/TLSv1_1) keep
++       working instead of falling through to `default: method = NULL`. */
++    case PY_SSL_VERSION_SSL3:
++    case PY_SSL_VERSION_TLS1:
++    case PY_SSL_VERSION_TLS1_1:
++    case PY_SSL_VERSION_TLS1_2:
++        method = TLS_method();
++        break;
++#endif
+     case PY_SSL_VERSION_TLS:
+         PY_SSL_DEPRECATED("ssl.PROTOCOL_TLS is deprecated", 2, NULL);
+         method = TLS_method();
+@@ -6702,7 +6714,7 @@
  
      addbool(m, "HAS_SSLv2", 0);
  
