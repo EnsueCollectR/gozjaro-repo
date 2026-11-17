@@ -17,9 +17,11 @@ patches = []
 system = "raw"
 steps = [
     "# cmake (host 7D12); ncurses from host dev libs",
-    "cmake -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release",
+    "# cmake >= 3.31 (and 4.x) install scripts honour the DESTDIR env var set by
+    # gozpak's build env — do NOT pass --prefix or it gets doubled",
+    "cmake -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF",
     "cmake --build build -j$(nproc)",
-    "cmake --install build --prefix \"$DESTDIR/usr\"",
+    "cmake --install build",
 ]
 
 [install]
