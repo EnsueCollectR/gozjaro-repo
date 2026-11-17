@@ -1,6 +1,6 @@
 [package]
 name = "openssl"
-version = "3.4.1"
+version = "4.1.0"
 release = 1
 desc = "TLS/SSL and crypto library"
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/openssl/openssl/releases/download/openssl-$VERSION/openssl-$VERSION.tar.gz", sha256 = "002a2d6b30b58bf4bea46c43bdd96365aaf8daa6c428782aa4feee06da197df3" },
+    { url = "https://github.com/openssl/openssl/archive/refs/tags/openssl-$VERSION.tar.gz", sha256 = "2a54158eb6861c07cefc92f1a1d68b12d5ecc0883d53c61a092995b221c7d5fe" },
 ]
 patches = []
 

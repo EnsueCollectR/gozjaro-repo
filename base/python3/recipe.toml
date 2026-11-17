@@ -1,13 +1,13 @@
 [package]
 name = "python3"
-version = "3.13.18"
+version = "3.14.10"
 release = 1
 depends = ["zlib", "bzip2", "expat", "libffi", "ncurses", "readline", "openssl", "xz"]
 build_depends = []
 
 [source]
 urls = [
-    { url = "https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tar.xz", sha256 = "abb0102e6d4ae027509bcb82327d9dd85515b44a3ba8ad538cfc5e9847029f68" },
+    { url = "https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tar.xz", sha256 = "de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032" },
 ]
 patches = []
 
