@@ -1,13 +1,13 @@
 [package]
 name = "man-pages"
-version = "7.0"
+version = "6.20"
 release = 1
 depends = []
 build_depends = []
 
 [source]
 urls = [
-    { url = "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-$VERSION.tar.xz", sha256 = "180f0d16a2142dd9671760ac0afeadcc25e861f695eb420293e1206a87ca083f" },
 ]
 patches = []
 
