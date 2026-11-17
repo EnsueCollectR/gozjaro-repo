@@ -16,7 +16,7 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "cp -f configs/gozjaro.config ./.config",
+    "cp -f \"$RECIPE_DIR/configs/gozjaro.config\" ./.config",
     "make -j$(nproc) olddefconfig",
     "make -j$(nproc) -s",
     "install -d \"$DESTDIR/boot\"",
