@@ -18,7 +18,7 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr --disable-static --sysconfdir=/etc",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

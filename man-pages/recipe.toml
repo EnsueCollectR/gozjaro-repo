@@ -14,7 +14,7 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "make -R prefix=/usr DESTDIR=\"$1\" install",
+    "make -R prefix=/usr DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

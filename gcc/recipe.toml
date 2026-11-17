@@ -29,10 +29,10 @@ steps = [
     "    --disable-fixincludes \\",
     "    --with-system-zlib",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "ln -svr \"$1/usr/bin/cpp\" \"$1/usr/lib/\"",
-    "mkdir -pv \"$1/usr/share/gdb/auto-load/usr/lib\"",
-    "mv -v \"$1/usr/lib/\"*gdb.py \"$1/usr/share/gdb/auto-load/usr/lib\" 2>/dev/null || true",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "ln -svr \"$DESTDIR/usr/bin/cpp\" \"$DESTDIR/usr/lib/\"",
+    "mkdir -pv \"$DESTDIR/usr/share/gdb/auto-load/usr/lib\"",
+    "mv -v \"$DESTDIR/usr/lib/\"*gdb.py \"$DESTDIR/usr/share/gdb/auto-load/usr/lib\" 2>/dev/null || true",
 ]
 
 [install]

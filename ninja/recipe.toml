@@ -15,7 +15,7 @@ patches = []
 system = "raw"
 steps = [
     "python3 configure.py --bootstrap",
-    "install -vm755 ninja \"$1/usr/bin/\"",
+    "install -vm755 ninja \"$DESTDIR/usr/bin/\"",
 ]
 
 [install]

@@ -20,7 +20,7 @@ steps = [
     "    --disable-liblastlog2 --without-python \\",
     "    ADJTIME_PATH=/var/lib/hwclock/adjtime",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

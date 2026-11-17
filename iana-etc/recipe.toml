@@ -14,8 +14,8 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "install -Dm644 services  \"$1/etc/services\"",
-    "install -Dm644 protocols \"$1/etc/protocols\"",
+    "install -Dm644 services  \"$DESTDIR/etc/services\"",
+    "install -Dm644 protocols \"$DESTDIR/etc/protocols\"",
 ]
 
 [install]

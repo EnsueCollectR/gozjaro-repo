@@ -18,8 +18,8 @@ steps = [
     "../configure --prefix=/usr --sysconfdir=/etc --enable-elf-shlibs \\",
     "    --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "rm -fv \"$1/usr/lib/\"{libcom_err,libe2p,libext2fs,libss}.a",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "rm -fv \"$DESTDIR/usr/lib/\"{libcom_err,libe2p,libext2fs,libss}.a",
 ]
 
 [install]

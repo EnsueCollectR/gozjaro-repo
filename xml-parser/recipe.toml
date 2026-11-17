@@ -16,7 +16,7 @@ system = "raw"
 steps = [
     "perl Makefile.PL",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

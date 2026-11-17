@@ -18,9 +18,9 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr --disable-debuginfod --enable-libdebuginfod=dummy",
     "make",
-    "make -C libelf DESTDIR=\"$1\" install",
-    "install -vm644 config/libelf.pc \"$1/usr/lib/pkgconfig/\"",
-    "rm -v \"$1/usr/lib/libelf.a\" 2>/dev/null || true",
+    "make -C libelf DESTDIR=\"$DESTDIR\" install",
+    "install -vm644 config/libelf.pc \"$DESTDIR/usr/lib/pkgconfig/\"",
+    "rm -v \"$DESTDIR/usr/lib/libelf.a\" 2>/dev/null || true",
 ]
 
 [install]

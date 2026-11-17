@@ -31,7 +31,7 @@ steps = [
     "    -Duseshrplib \\",
     "    -Dusethreads",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

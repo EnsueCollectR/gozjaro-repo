@@ -17,7 +17,7 @@ steps = [
     "./configure --prefix=/usr --sysconfdir=/etc/ssh \\",
     "    --with-privsep-path=/var/lib/sshd",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

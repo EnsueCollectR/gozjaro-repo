@@ -16,8 +16,8 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "rm -fv \"$1/usr/lib/libltdl.a\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "rm -fv \"$DESTDIR/usr/lib/libltdl.a\"",
 ]
 
 [install]

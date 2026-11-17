@@ -16,8 +16,8 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr --disable-static",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "ln -sv flex \"$1/usr/bin/lex\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "ln -sv flex \"$DESTDIR/usr/bin/lex\"",
 ]
 
 [install]

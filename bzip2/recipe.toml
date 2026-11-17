@@ -23,14 +23,14 @@ steps = [
     "make -f Makefile-libbz2_so",
     "make clean",
     "make",
-    "make PREFIX=\"$1/usr\" install",
-    "cp -av libbz2.so.* \"$1/usr/lib/\"",
-    "ln -sv libbz2.so.1.0.8 \"$1/usr/lib/libbz2.so\"",
-    "cp -v bzip2-shared \"$1/usr/bin/bzip2\"",
+    "make PREFIX=\"$DESTDIR/usr\" install",
+    "cp -av libbz2.so.* \"$DESTDIR/usr/lib/\"",
+    "ln -sv libbz2.so.1.0.8 \"$DESTDIR/usr/lib/libbz2.so\"",
+    "cp -v bzip2-shared \"$DESTDIR/usr/bin/bzip2\"",
     "for i in bzcat bunzip2; do",
-    "    ln -sfv bzip2 \"$1/usr/bin/$i\"",
+    "    ln -sfv bzip2 \"$DESTDIR/usr/bin/$i\"",
     "done",
-    "rm -fv \"$1/usr/lib/libbz2.a\"",
+    "rm -fv \"$DESTDIR/usr/lib/libbz2.a\"",
 ]
 
 [install]

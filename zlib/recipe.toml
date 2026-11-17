@@ -18,8 +18,8 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "rm -fv \"$1/usr/lib/libz.a\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "rm -fv \"$DESTDIR/usr/lib/libz.a\"",
 ]
 
 [install]

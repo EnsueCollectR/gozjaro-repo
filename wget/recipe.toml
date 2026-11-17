@@ -16,7 +16,7 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr --with-ssl=openssl",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

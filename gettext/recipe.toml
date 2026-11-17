@@ -16,8 +16,8 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr --disable-static",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "chmod -v 0755 \"$1/usr/lib/preloadable_libintl.so\" 2>/dev/null || true",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "chmod -v 0755 \"$DESTDIR/usr/lib/preloadable_libintl.so\" 2>/dev/null || true",
 ]
 
 [install]

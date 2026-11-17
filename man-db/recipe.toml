@@ -19,7 +19,7 @@ steps = [
     "    --with-browser=/usr/bin/lynx --with-vgrind=/usr/bin/vgrind \\",
     "    --with-grap=/usr/bin/grap",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

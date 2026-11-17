@@ -18,7 +18,7 @@ system = "raw"
 steps = [
     "./configure --prefix=/usr --with-openssl --enable-threaded-resolver --disable-static",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

@@ -17,8 +17,8 @@ steps = [
     "echo '#define SYS_VIMRC_FILE \"/etc/vimrc\"' >> src/feature.h",
     "./configure --prefix=/usr",
     "make",
-    "make DESTDIR=\"$1\" install",
-    "ln -sv vim \"$1/usr/bin/vi\" 2>/dev/null || true",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "ln -sv vim \"$DESTDIR/usr/bin/vi\" 2>/dev/null || true",
 ]
 
 [install]

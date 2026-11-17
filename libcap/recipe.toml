@@ -18,7 +18,7 @@ system = "raw"
 steps = [
     "sed -i '/install -m.*STA/d' libcap/Makefile",
     "make prefix=/usr lib=lib",
-    "make prefix=/usr lib=lib DESTDIR=\"$1\" install",
+    "make prefix=/usr lib=lib DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

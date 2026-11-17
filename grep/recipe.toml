@@ -17,7 +17,7 @@ steps = [
     "sed -i \"s/echo/#echo/\" src/egrep.sh 2>/dev/null || true",
     "./configure --prefix=/usr",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

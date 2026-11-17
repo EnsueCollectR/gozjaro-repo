@@ -14,7 +14,7 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "pip3 install --no-build-isolation --no-deps --root=\"$1\" --prefix=/usr \"$PWD\"",
+    "pip3 install --no-build-isolation --no-deps --root=\"$DESTDIR\" --prefix=/usr \"$PWD\"",
 ]
 
 [install]

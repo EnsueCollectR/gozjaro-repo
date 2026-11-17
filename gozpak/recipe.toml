@@ -14,15 +14,15 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "install -Dm755 gozpak \"$1/usr/bin/gozpak\"",
+    "install -Dm755 gozpak \"$DESTDIR/usr/bin/gozpak\"",
     "# Install extensions",
     "for f in contrib/gozpak-*; do",
     "    [ -f \"$f\" ] || continue",
-    "    install -Dm755 \"$f\" \"$1/usr/bin/$(basename \"$f\")\"",
+    "    install -Dm755 \"$f\" \"$DESTDIR/usr/bin/$(basename \"$f\")\"",
     "done",
     "# Create default directories",
-    "mkdir -p \"$1/etc/gozpak\"",
-    "mkdir -p \"$1/var/db/gozpak/installed\"",
+    "mkdir -p \"$DESTDIR/etc/gozpak\"",
+    "mkdir -p \"$DESTDIR/var/db/gozpak/installed\"",
 ]
 
 [install]

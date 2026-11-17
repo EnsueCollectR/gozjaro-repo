@@ -21,7 +21,7 @@ steps = [
     "    --disable-rexec --disable-rlogin --disable-rsh \\",
     "    --disable-servers",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

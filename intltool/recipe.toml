@@ -17,7 +17,7 @@ steps = [
     "sed -i 's:\\\\\\${:\\\\\\$\\\\{:' intltool-update.in",
     "./configure --prefix=/usr",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

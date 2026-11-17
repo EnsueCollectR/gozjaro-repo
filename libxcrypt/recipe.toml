@@ -22,7 +22,7 @@ steps = [
     "    --disable-static \\",
     "    --disable-failure-tokens",
     "make",
-    "make DESTDIR=\"$1\" install",
+    "make DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]
