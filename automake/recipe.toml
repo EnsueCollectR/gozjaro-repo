@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://mirrors.kernel.org/gnu/automake/automake-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://mirrors.kernel.org/gnu/automake/automake-$VERSION.tar.xz", sha256 = "8920c1fc411e13b90bf704ef9db6f29d540e76d232cb3b2c9f4dc4cc599bd990" },
 ]
 patches = []
 

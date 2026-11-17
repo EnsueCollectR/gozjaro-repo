@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/Mic92/iana-etc/releases/download/$VERSION/iana-etc-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://github.com/Mic92/iana-etc/releases/download/$VERSION/iana-etc-$VERSION.tar.gz", sha256 = "93da9dd2962da27b72def08f732eb09dc63bd7fcba4a35973ad653e24d32fdfe" },
 ]
 patches = []
 

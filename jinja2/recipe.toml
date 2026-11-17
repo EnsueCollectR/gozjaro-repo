@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://pypi.org/packages/source/J/Jinja2/jinja2-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://pypi.org/packages/source/J/Jinja2/jinja2-$VERSION.tar.gz", sha256 = "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb" },
 ]
 patches = []
 

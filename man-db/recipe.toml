@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://download.savannah.gnu.org/releases/man-db/man-db-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://download.savannah.gnu.org/releases/man-db/man-db-$VERSION.tar.xz", sha256 = "82f0739f4f61aab5eb937d234de3b014e777b5538a28cbd31433c45ae09aefb9" },
 ]
 patches = []
 

@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/systemd/systemd/archive/v$VERSION/systemd-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://github.com/systemd/systemd/archive/v$VERSION/systemd-$VERSION.tar.gz", sha256 = "5038424744b2ed8c1d7ecc75b00eeffe68528f9789411da60f199d65762d9ba5" },
 ]
 patches = []
 

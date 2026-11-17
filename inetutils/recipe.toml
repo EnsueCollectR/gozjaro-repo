@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://mirrors.kernel.org/gnu/inetutils/inetutils-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://mirrors.kernel.org/gnu/inetutils/inetutils-$VERSION.tar.xz", sha256 = "68bedbfeaf73f7d86be2a7d99bcfbd4093d829f52770893919ae174c0b2357ca" },
 ]
 patches = []
 

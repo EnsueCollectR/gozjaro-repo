@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://mirrors.kernel.org/gnu/libtool/libtool-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://mirrors.kernel.org/gnu/libtool/libtool-$VERSION.tar.xz", sha256 = "f81f5860666b0bc7d84baddefa60d1cb9fa6fceb2398cc3baca6afaa60266675" },
 ]
 patches = []
 

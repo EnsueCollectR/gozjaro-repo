@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://ftp.gnu.org/gnu/wget/wget-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://ftp.gnu.org/gnu/wget/wget-$VERSION.tar.gz", sha256 = "766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784" },
 ]
 patches = []
 

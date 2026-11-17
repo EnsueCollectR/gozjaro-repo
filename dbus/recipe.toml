@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://dbus.freedesktop.org/releases/dbus/dbus-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://dbus.freedesktop.org/releases/dbus/dbus-$VERSION.tar.xz", sha256 = "ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f" },
 ]
 patches = []
 

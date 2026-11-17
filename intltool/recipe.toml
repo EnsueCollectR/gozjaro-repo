@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://launchpad.net/intltool/trunk/$VERSION/+download/intltool-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://launchpad.net/intltool/trunk/$VERSION/+download/intltool-$VERSION.tar.gz", sha256 = "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd" },
 ]
 patches = []
 

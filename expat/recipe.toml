@@ -1,6 +1,6 @@
 [package]
 name = "expat"
-version = "2.7.5"
+version = "2.10.0"
 release = 1
 desc = "XML parser library"
 license = "MIT"
@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://prdownloads.sourceforge.net/expat/expat-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://prdownloads.sourceforge.net/expat/expat-$VERSION.tar.xz", sha256 = c624ba2998fc65df1163a49641ff3f9ab73138b11641d92c86bee0fb01b1bc7f },
 ]
 patches = []
 

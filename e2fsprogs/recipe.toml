@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v$VERSION/e2fsprogs-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v$VERSION/e2fsprogs-$VERSION.tar.gz", sha256 = "6dcd67ff9d8b13274ba3f088e4318be4f5b71412cd863524423fc49d39a6371f" },
 ]
 patches = []
 

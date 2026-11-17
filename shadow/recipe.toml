@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/shadow-maint/shadow/releases/download/$VERSION/shadow-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://github.com/shadow-maint/shadow/releases/download/$VERSION/shadow-$VERSION.tar.xz", sha256 = "09e896c7b01c97ba4be2d6be332c55a3e478b4893cd3c3466d8224e622bd4943" },
 ]
 patches = []
 

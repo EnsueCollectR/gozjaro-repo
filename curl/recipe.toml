@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://curl.se/download/curl-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://curl.se/download/curl-$VERSION.tar.xz", sha256 = "0341f1ed97a26c811abaebd37d62b833956792b7607ea3f15d001613c76de202" },
 ]
 patches = []
 

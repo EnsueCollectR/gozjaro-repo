@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/mesonbuild/meson/releases/download/$VERSION/meson-$VERSION.tar.gz", sha256 = "" },
+    { url = "https://github.com/mesonbuild/meson/releases/download/$VERSION/meson-$VERSION.tar.gz", sha256 = "1eca49eb6c26d58bbee67fd3337d8ef557c0804e30a6d16bfdf269db997464de" },
 ]
 patches = []
 

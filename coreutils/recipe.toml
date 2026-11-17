@@ -7,7 +7,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://mirrors.kernel.org/gnu/coreutils/coreutils-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://mirrors.kernel.org/gnu/coreutils/coreutils-$VERSION.tar.xz", sha256 = "7a0124327b398fd9eb1a6abde583389821422c744ffa10734b24f557610d3283" },
 ]
 patches = []
 
