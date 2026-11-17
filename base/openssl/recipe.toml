@@ -4,8 +4,8 @@ version = "4.1.0"
 release = 1
 desc = "TLS/SSL and crypto library"
 license = "Apache-2.0"
-depends = ["zlib", "perl"]
-build_depends = []
+depends = []
+build_depends = ["perl"]
 
 [source]
 urls = [

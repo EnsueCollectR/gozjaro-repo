@@ -2,7 +2,7 @@
 name = "ninja"
 version = "1.12.1"
 release = 1
-depends = ["python3"]
+depends = []
 build_depends = []
 
 [source]
