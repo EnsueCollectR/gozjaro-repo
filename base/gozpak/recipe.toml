@@ -15,7 +15,7 @@ patches = []
 system = "raw"
 steps = [
     "# cargo release build (glibc-dynamic binary)",
-    "cd rs && \"$HOME/.cargo/bin/cargo\" build --release --bin gozpak",
+    "cd rs && cargo build --release --bin gozpak",
     "install -Dm755 rs/target/release/gozpak \"$DESTDIR/usr/bin/gozpak\"",
     "install -Dm644 LICENSE \"$DESTDIR/usr/share/licenses/gozpak/LICENSE\"",
 ]
