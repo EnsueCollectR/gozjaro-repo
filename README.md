@@ -9,9 +9,9 @@ Gozjaro Linux 的软件包 recipe 仓库，使用 [gozpak](https://github.com/Go
 
 - `base/` — the 85-package LFS base system (26.11 build batch, built on the LFS VM).
   85 包 LFS 基础系统（26.11 批次，在 LFS VM 上编译）。
-- `gui/` — the extra/desktop batch (191 packages, built on the 7D12 host).
+- `extra/` — the extra/desktop batch (191 packages, built on the 7D12 host).
   GUI/桌面批次（191 包，在 7D12 主机上编译）。
-- `order/base.txt`, `order/gui.txt` — build orders for the batch drivers.
+- `order/base.txt`, `order/extra.txt` — build orders for the batch drivers.
   批次驱动的构建顺序。
 - `.signing/` (gitignored) — ed25519 seed for `gozpak sign`; the matching
   public key is embedded in gozpak (`EMBEDDED_PUBKEY`). The seed lives only on
@@ -50,11 +50,11 @@ This runs `gozpak index-build` + `gozpak sign` and uploads the `.gpkg` files,
 
 ## Build from source / 从源码构建
 
-Point `GOZPAK_PATH` at `base/` or `gui/` (whichever tree you are building),
+Point `GOZPAK_PATH` at `base/` or `extra/` (whichever tree you are building),
 then run the batch driver (round-1 order, round-2 for stragglers):
 
 ```sh
-GOZPAK_PATH=/opt/gozjaro-repo/base   # or gui/
+GOZPAK_PATH=/opt/gozjaro-repo/base   # or extra/
 gozpak repo-build <pkg>
 ```
 
