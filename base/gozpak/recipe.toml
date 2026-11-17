@@ -8,7 +8,7 @@ depends = []
 build_depends = ["rust"]
 
 [source]
-git = "git+https://github.com/Gozjaro/gozpak.git#d1875508494356eb2163341bb9d442ff01cf8a3b"
+git = "git+https://github.com/Gozjaro/gozpak.git#040b46966955ac9572cdfff858abb1f4cd0458fc"
 patches = []
 
 [build]
