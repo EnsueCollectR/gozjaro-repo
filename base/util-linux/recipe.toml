@@ -9,7 +9,7 @@ build_depends = []
 urls = [
     { url = "https://www.kernel.org/pub/linux/utils/util-linux/v$MAJOR.$MINOR/util-linux-$VERSION.tar.xz", sha256 = "5c1daf733b04e9859afdc3bd87cc481180ee0f88b5c0946b16fdec931975fb79" },
 ]
-patches = []
+patches = ["patches/util-linux-glibc-bsearch.patch"]
 
 [build]
 system = "raw"

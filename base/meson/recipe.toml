@@ -2,7 +2,7 @@
 name = "meson"
 version = "1.6.1"
 release = 1
-depends = ["python3", "ninja"]
+depends = ["python3", "ninja", "jinja2", "markupsafe"]
 build_depends = []
 
 [source]

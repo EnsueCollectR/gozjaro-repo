@@ -14,7 +14,7 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "./configure --prefix=/usr --without-included-zlib",
+    "./configure --prefix=/usr --without-included-zlib --disable-xxhash",
     "make -j$(nproc)",
     "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]

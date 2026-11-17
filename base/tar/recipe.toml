@@ -14,7 +14,7 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "FORCE_UNSAFE_CONFIGURE=1 ./configure --prefix=/usr",
+    "FORCE_UNSAFE_CONFIGURE=1 ./configure --prefix=/usr --disable-acl",
     "make -j$(nproc)",
     "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
