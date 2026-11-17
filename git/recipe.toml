@@ -15,8 +15,8 @@ patches = []
 system = "raw"
 steps = [
     "./configure --prefix=/usr --with-gitconfig=/etc/gitconfig",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

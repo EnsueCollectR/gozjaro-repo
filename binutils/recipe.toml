@@ -25,8 +25,8 @@ steps = [
     "    --enable-new-dtags \\",
     "    --with-system-zlib \\",
     "    --enable-default-hash-style=gnu",
-    "make tooldir=/usr",
-    "make tooldir=/usr DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc) tooldir=/usr",
+    "make -j$(nproc) tooldir=/usr DESTDIR=\"$DESTDIR\" install",
     "rm -fv \"$DESTDIR/usr/lib/lib\"{bfd,ctf,ctf-nobfd,opcodes,sframe}.a",
 ]
 

@@ -19,8 +19,8 @@ steps = [
     "    --disable-setpriv --disable-runuser --disable-pylibmount --disable-static \\",
     "    --disable-liblastlog2 --without-python \\",
     "    ADJTIME_PATH=/var/lib/hwclock/adjtime",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

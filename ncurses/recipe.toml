@@ -24,8 +24,8 @@ steps = [
     "    --with-cxx-shared \\",
     "    --enable-pc-files \\",
     "    --with-pkg-config-libdir=/usr/lib/pkgconfig",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
     "ln -sfv libncursesw.so \"$DESTDIR/usr/lib/libncurses.so\"",
     "sed -e 's/^#if.*XOPEN.*$/#if 1/' -i \"$DESTDIR/usr/include/curses.h\"",
 ]

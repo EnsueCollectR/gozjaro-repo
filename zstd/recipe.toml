@@ -16,8 +16,8 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "make prefix=/usr",
-    "make prefix=/usr DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc) prefix=/usr",
+    "make -j$(nproc) prefix=/usr DESTDIR=\"$DESTDIR\" install",
     "rm -v \"$DESTDIR/usr/lib/libzstd.a\"",
 ]
 

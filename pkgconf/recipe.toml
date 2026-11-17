@@ -15,8 +15,8 @@ patches = []
 system = "raw"
 steps = [
     "./configure --prefix=/usr --disable-static",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
     "ln -sv pkgconf \"$DESTDIR/usr/bin/pkg-config\"",
     "ln -sv pkgconf.1 \"$DESTDIR/usr/share/man/man1/pkg-config.1\" 2>/dev/null || true",
 ]

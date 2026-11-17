@@ -30,8 +30,8 @@ steps = [
     "    -Dpager=\"/usr/bin/less -isR\" \\",
     "    -Duseshrplib \\",
     "    -Dusethreads",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

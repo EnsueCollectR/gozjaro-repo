@@ -15,8 +15,8 @@ patches = []
 system = "raw"
 steps = [
     "./configure --prefix=/usr --without-included-zlib",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

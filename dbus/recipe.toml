@@ -17,8 +17,8 @@ steps = [
     "./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \\",
     "    --runstatedir=/run --enable-user-session --disable-static \\",
     "    --disable-doxygen-docs --disable-xml-docs",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]
