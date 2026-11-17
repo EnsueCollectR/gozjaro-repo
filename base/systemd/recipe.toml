@@ -19,6 +19,7 @@ steps = [
     "meson setup .. \\",
     "    --prefix=/usr \\",
     "    --buildtype=release \\",
+    "    -Dc_args=-Wno-override-init \\",
     "    --wrap-mode=nofallback \\",
     "    -Dmode=release \\",
     "    -Ddev-kvm-mode=0660 \\",
