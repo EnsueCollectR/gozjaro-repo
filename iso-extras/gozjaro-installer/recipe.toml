@@ -1,0 +1,27 @@
+[package]
+name = "gozjaro-installer"
+version = "0.1.0"
+release = 1
+desc = "GozJaro live-ISO disk installer (Rust rewrite of the python gozjaro-install backend); live-ISO only, not part of the installed system"
+license = "GPL-3.0-or-later"
+depends = []
+build_depends = []
+
+[source]
+git = "git+https://github.com/Gozjaro/gozjaro-installer-rs#9642cd12c355ba233b671d8d5134e1157f70292d"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# glibc-dynamic (7D12 host, glibc 2.39): the live-ISO / GozJaro system runs glibc 2.44,
+    # a forward-compatible superset; the 7D12 rustc is a source build without a musl std,
+    # so a plain cargo build is the first-class path here",
+    "cargo build --release",
+    "install -Dm755 target/release/gozjaro-install \"$DESTDIR/usr/bin/gozjaro-install\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
