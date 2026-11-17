@@ -40,7 +40,7 @@
  #if (defined(TLS1_VERSION) && \
          !defined(OPENSSL_NO_TLS1) && \
 -        !defined(OPENSSL_NO_TLS1_METHOD))
-+        !defined(OPENSSL_NO_TLS1_METHOD) && \n        OPENSSL_VERSION_NUMBER < 0x40000000L)
++        !defined(OPENSSL_NO_TLS1_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L)
      case PY_SSL_VERSION_TLS1:
          PY_SSL_DEPRECATED("ssl.PROTOCOL_TLSv1 is deprecated", 2, NULL);
          method = TLSv1_method();
@@ -49,7 +49,7 @@
  #if (defined(TLS1_1_VERSION) && \
          !defined(OPENSSL_NO_TLS1_1) && \
 -        !defined(OPENSSL_NO_TLS1_1_METHOD))
-+        !defined(OPENSSL_NO_TLS1_1_METHOD) && \n        OPENSSL_VERSION_NUMBER < 0x40000000L)
++        !defined(OPENSSL_NO_TLS1_1_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L)
      case PY_SSL_VERSION_TLS1_1:
          PY_SSL_DEPRECATED("ssl.PROTOCOL_TLSv1_1 is deprecated", 2, NULL);
          method = TLSv1_1_method();
