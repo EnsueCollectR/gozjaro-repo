@@ -30,6 +30,7 @@ steps = [
     "    --with-system-zlib",
     "make -j$(nproc)",
     "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
+    "find \"$DESTDIR\" -type f -size +1M -exec strip --strip-unneeded {} + 2>/dev/null || true",
     "ln -svr \"$DESTDIR/usr/bin/cpp\" \"$DESTDIR/usr/lib/\"",
     "mkdir -pv \"$DESTDIR/usr/share/gdb/auto-load/usr/lib\"",
     "mv -v \"$DESTDIR/usr/lib/\"*gdb.py \"$DESTDIR/usr/share/gdb/auto-load/usr/lib\" 2>/dev/null || true",
