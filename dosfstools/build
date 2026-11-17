@@ -1,4 +1,0 @@
-#!/bin/sh -e
-./configure --prefix=/usr --enable-compat-symlinks
-make
-make DESTDIR="$1" install

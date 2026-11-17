@@ -1,4 +1,0 @@
-#!/bin/sh -e
-./configure --prefix=/usr --disable-static --sysconfdir=/etc
-make
-make DESTDIR="$1" install

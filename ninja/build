@@ -1,3 +1,0 @@
-#!/bin/sh -e
-python3 configure.py --bootstrap
-install -vm755 ninja "$1/usr/bin/"
