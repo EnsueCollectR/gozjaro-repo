@@ -1,13 +1,13 @@
 [package]
 name = "openssh"
-version = "9.9p1"
+version = "10.6p2"
 release = 1
 depends = ["openssl", "zlib"]
 build_depends = []
 
 [source]
 urls = [
-    { url = "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$VERSION.tar.gz", sha256 = "b343fbcdbff87f15b1986e6e15d6d4fc9a7d36066be6b7fb507087ba8f966c02" },
+    { url = "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$VERSION.tar.gz", sha256 = "9ae44872090cf2f06b3cf9ff147e7f16f309671340763ed2f99248398ae29d5b" },
 ]
 patches = []
 

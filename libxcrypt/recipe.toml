@@ -1,6 +1,6 @@
 [package]
 name = "libxcrypt"
-version = "4.4.38"
+version = "4.5.2"
 release = 1
 desc = "Extended crypt library for DES, MD5, Blowfish and others"
 license = "LGPL-2.1-or-later"
@@ -9,7 +9,7 @@ build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/besser82/libxcrypt/releases/download/v$VERSION/libxcrypt-$VERSION.tar.xz", sha256 = "80304b9c306ea799327f01d9a7549bdb28317789182631f1b54f4511b4206dd6" },
+    { url = "https://github.com/besser82/libxcrypt/releases/download/v$VERSION/libxcrypt-$VERSION.tar.xz", sha256 = "71513a31c01a428bccd5367a32fd95f115d6dac50fb5b60c779d5c7942aec071" },
 ]
 patches = []
 

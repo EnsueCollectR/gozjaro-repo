@@ -19,7 +19,7 @@ steps = [
     "    --with-system-expat \\",
     "    --enable-optimizations",
     "make -j$(nproc)",
-    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
+    "make DESTDIR=\"$DESTDIR\" install  # serial: parallel make install races on .pyc write",
 ]
 
 [install]

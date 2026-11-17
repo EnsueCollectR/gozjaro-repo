@@ -1,13 +1,13 @@
 [package]
 name = "binutils"
-version = "2.44"
+version = "2.47"
 release = 1
 depends = ["zlib"]
 build_depends = []
 
 [source]
 urls = [
-    { url = "https://sourceware.org/pub/binutils/releases/binutils-$VERSION.tar.xz", sha256 = "ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237" },
+    { url = "https://sourceware.org/pub/binutils/releases/binutils-$VERSION.tar.xz", sha256 = "154ab23b60070e8f27013c22977f1129425d67d1e8acd6e13010e617811e4cff" },
 ]
 patches = []
 
