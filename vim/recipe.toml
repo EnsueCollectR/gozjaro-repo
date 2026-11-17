@@ -1,0 +1,27 @@
+[package]
+name = "vim"
+version = "9.1.1166"
+release = 1
+depends = ["ncurses", "acl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/vim/vim/archive/vVERSION/vim-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "echo '#define SYS_VIMRC_FILE \"/etc/vimrc\"' >> src/feature.h",
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+    "ln -sv vim \"$1/usr/bin/vi\" 2>/dev/null || true",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

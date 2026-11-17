@@ -1,0 +1,24 @@
+[package]
+name = "markupsafe"
+version = "3.0.2"
+release = 1
+depends = ["python3"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://pypi.org/packages/source/M/MarkupSafe/markupsafe-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps \"$PWD\"",
+    "pip3 install --no-index --no-user --find-links dist --root=\"$1\" --prefix=/usr markupsafe",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

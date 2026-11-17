@@ -1,0 +1,30 @@
+[package]
+name = "gmp"
+version = "6.3.0"
+release = 1
+desc = "GNU Multiple Precision Arithmetic Library"
+license = "LGPL-3.0-or-later"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/gmp/gmp-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --enable-cxx --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

@@ -1,0 +1,25 @@
+[package]
+name = "xml-parser"
+version = "2.47"
+release = 1
+depends = ["perl", "expat"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "perl Makefile.PL",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

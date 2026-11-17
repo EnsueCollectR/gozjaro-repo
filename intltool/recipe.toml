@@ -1,0 +1,26 @@
+[package]
+name = "intltool"
+version = "0.51.0"
+release = 1
+depends = ["perl", "xml-parser"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://launchpad.net/intltool/trunk/$VERSION/+download/intltool-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "sed -i 's:\\\\\\${:\\\\\\$\\\\{:' intltool-update.in",
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

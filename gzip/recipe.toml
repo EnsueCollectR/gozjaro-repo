@@ -1,0 +1,25 @@
+[package]
+name = "gzip"
+version = "1.13"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/gzip/gzip-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

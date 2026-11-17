@@ -1,0 +1,24 @@
+[package]
+name = "ninja"
+version = "1.12.1"
+release = 1
+depends = ["python3"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/ninja-build/ninja/archive/vVERSION/ninja-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "python3 configure.py --bootstrap",
+    "install -vm755 ninja \"$1/usr/bin/\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,30 @@
+[package]
+name = "gdbm"
+version = "1.24"
+release = 1
+desc = "GNU database library"
+license = "GPL-3.0-or-later"
+depends = ["readline"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/gdbm/gdbm-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static --enable-libgdbm-compat",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

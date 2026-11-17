@@ -1,0 +1,31 @@
+[package]
+name = "openssl"
+version = "3.4.1"
+release = 1
+desc = "TLS/SSL and crypto library"
+license = "Apache-2.0"
+depends = ["zlib", "perl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/openssl/openssl/releases/download/openssl-$VERSION/openssl-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic",
+    "make",
+    "sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile",
+    "make DESTDIR=\"$1\" MANSUFFIX=ssl install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

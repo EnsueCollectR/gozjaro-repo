@@ -1,0 +1,30 @@
+[package]
+name = "attr"
+version = "2.5.2"
+release = 1
+desc = "Extended attribute support library"
+license = "LGPL-2.1-or-later"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://download.savannah.gnu.org/releases/attr/attr-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static --sysconfdir=/etc",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

@@ -1,0 +1,25 @@
+[package]
+name = "wget"
+version = "1.25.0"
+release = 1
+depends = ["openssl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://ftp.gnu.org/gnu/wget/wget-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --with-ssl=openssl",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

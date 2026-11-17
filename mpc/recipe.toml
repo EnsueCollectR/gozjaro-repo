@@ -1,0 +1,30 @@
+[package]
+name = "mpc"
+version = "1.3.1"
+release = 1
+desc = "C library for complex number arithmetic"
+license = "LGPL-3.0-or-later"
+depends = ["gmp", "mpfr"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/mpc/mpc-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

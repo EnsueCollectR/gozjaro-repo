@@ -1,0 +1,36 @@
+[package]
+name = "binutils"
+version = "2.44"
+release = 1
+depends = ["zlib"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://sourceware.org/pub/binutils/releases/binutils-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "mkdir -v build && cd build",
+    "../configure --prefix=/usr \\",
+    "    --sysconfdir=/etc \\",
+    "    --enable-ld=default \\",
+    "    --enable-plugins \\",
+    "    --enable-shared \\",
+    "    --disable-werror \\",
+    "    --enable-64-bit-bfd \\",
+    "    --enable-new-dtags \\",
+    "    --with-system-zlib \\",
+    "    --enable-default-hash-style=gnu",
+    "make tooldir=/usr",
+    "make tooldir=/usr DESTDIR=\"$1\" install",
+    "rm -fv \"$1/usr/lib/lib\"{bfd,ctf,ctf-nobfd,opcodes,sframe}.a",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,25 @@
+[package]
+name = "texinfo"
+version = "7.2"
+release = 1
+depends = ["perl", "ncurses"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/texinfo/texinfo-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

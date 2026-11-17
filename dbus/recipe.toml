@@ -1,0 +1,27 @@
+[package]
+name = "dbus"
+version = "1.14.10"
+release = 1
+depends = ["expat"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://dbus.freedesktop.org/releases/dbus/dbus-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \\",
+    "    --runstatedir=/run --enable-user-session --disable-static \\",
+    "    --disable-doxygen-docs --disable-xml-docs",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

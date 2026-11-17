@@ -1,0 +1,28 @@
+[package]
+name = "kbd"
+version = "2.7.1"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.kernel.org/pub/linux/utils/kbd/kbd-$VERSION.tar.xz", sha256 = "" },
+    { url = "https://www.linuxfromscratch.org/patches/lfs/12.3/kbd-2.7.1-backspace-1.patch", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "patch -Np1 -i kbd-2.7.1-backspace-1.patch || true",
+    "[ -f configure ] && sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure || true",
+    "./configure --prefix=/usr --disable-vlock",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,25 @@
+[package]
+name = "groff"
+version = "1.23.0"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/groff/groff-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "PAGE=letter ./configure --prefix=/usr",
+    "make -j1",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

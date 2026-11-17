@@ -1,0 +1,25 @@
+[package]
+name = "file"
+version = "5.46"
+release = 1
+depends = ["zlib"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://astron.com/pub/file/file-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

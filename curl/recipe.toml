@@ -1,0 +1,30 @@
+[package]
+name = "curl"
+version = "8.12.1"
+release = 1
+desc = "Command-line URL transfer tool"
+license = "MIT"
+depends = ["openssl", "zlib"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://curl.se/download/curl-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --with-openssl --enable-threaded-resolver --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

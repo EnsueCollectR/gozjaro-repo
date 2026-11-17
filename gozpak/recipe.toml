@@ -1,0 +1,31 @@
+[package]
+name = "gozpak"
+version = "6.0.0"
+release = 1
+desc = "Package manager for Gozjaro Linux"
+license = "MIT"
+depends = ["curl", "openssl"]
+build_depends = []
+
+[source]
+git = "git+https://github.com/Gozjaro/gozpak#865db2cc4c71fa5fdcd2acf2ddff9232ba871e66"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "install -Dm755 gozpak \"$1/usr/bin/gozpak\"",
+    "# Install extensions",
+    "for f in contrib/gozpak-*; do",
+    "    [ -f \"$f\" ] || continue",
+    "    install -Dm755 \"$f\" \"$1/usr/bin/$(basename \"$f\")\"",
+    "done",
+    "# Create default directories",
+    "mkdir -p \"$1/etc/gozpak\"",
+    "mkdir -p \"$1/var/db/gozpak/installed\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,39 @@
+[package]
+name = "ncurses"
+version = "6.5"
+release = 1
+desc = "Terminal handling library"
+license = "MIT"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://invisible-mirror.net/archives/ncurses/ncurses-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr \\",
+    "    --mandir=/usr/share/man \\",
+    "    --with-shared \\",
+    "    --without-debug \\",
+    "    --without-normal \\",
+    "    --with-cxx-shared \\",
+    "    --enable-pc-files \\",
+    "    --with-pkg-config-libdir=/usr/lib/pkgconfig",
+    "make",
+    "make DESTDIR=\"$1\" install",
+    "ln -sfv libncursesw.so \"$1/usr/lib/libncurses.so\"",
+    "sed -e 's/^#if.*XOPEN.*$/#if 1/' -i \"$1/usr/include/curses.h\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

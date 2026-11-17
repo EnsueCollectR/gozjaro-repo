@@ -1,0 +1,30 @@
+[package]
+name = "libffi"
+version = "3.4.7"
+release = 1
+desc = "Foreign function interface library"
+license = "MIT"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/libffi/libffi/releases/download/vVERSION/libffi-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static --with-gcc-arch=native",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

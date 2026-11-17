@@ -1,0 +1,25 @@
+[package]
+name = "nano"
+version = "8.3"
+release = 1
+depends = ["ncurses"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.nano-editor.org/dist/v8/nano-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --sysconfdir=/etc --enable-utf8",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

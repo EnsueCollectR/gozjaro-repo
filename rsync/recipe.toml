@@ -1,0 +1,25 @@
+[package]
+name = "rsync"
+version = "3.4.1"
+release = 1
+depends = ["zlib", "openssl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://download.samba.org/pub/rsync/src/rsync-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --without-included-zlib",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

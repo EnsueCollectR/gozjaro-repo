@@ -1,0 +1,25 @@
+[package]
+name = "findutils"
+version = "4.10.0"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/findutils/findutils-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --localstatedir=/var/lib/locate",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,25 @@
+[package]
+name = "psmisc"
+version = "23.7"
+release = 1
+depends = ["ncurses"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

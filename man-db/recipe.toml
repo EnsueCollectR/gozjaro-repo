@@ -1,0 +1,28 @@
+[package]
+name = "man-db"
+version = "2.13.0"
+release = 1
+depends = ["libpipeline", "gdbm", "groff", "less"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://download.savannah.gnu.org/releases/man-db/man-db-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --sysconfdir=/etc \\",
+    "    --disable-setuid --enable-cache-owner=bin \\",
+    "    --with-browser=/usr/bin/lynx --with-vgrind=/usr/bin/vgrind \\",
+    "    --with-grap=/usr/bin/grap",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,26 @@
+[package]
+name = "linux-headers"
+version = "7.0"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.kernel.org/pub/linux/kernel/v7.x/linux-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "make mrproper",
+    "make headers",
+    "find usr/include -type f ! -name '*.h' -delete",
+    "cp -rv usr/include \"$1/usr/\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

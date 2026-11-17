@@ -1,0 +1,26 @@
+[package]
+name = "grep"
+version = "3.11"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/grep/grep-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "sed -i \"s/echo/#echo/\" src/egrep.sh 2>/dev/null || true",
+    "./configure --prefix=/usr",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

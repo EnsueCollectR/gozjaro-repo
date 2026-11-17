@@ -1,0 +1,26 @@
+[package]
+name = "iproute2"
+version = "6.13.0"
+release = 1
+depends = ["libelf"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "sed -i /ARPD/d Makefile",
+    "rm -fv man/man8/arpd.8",
+    "make NETNS_RUN_DIR=/run/netns",
+    "make SBINDIR=/usr/sbin DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

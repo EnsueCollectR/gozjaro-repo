@@ -1,0 +1,25 @@
+[package]
+name = "bc"
+version = "7.0.3"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/gavinhoward/bc/releases/download/$VERSION/bc-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "CC=gcc ./configure --prefix=/usr -G -O3 -r",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

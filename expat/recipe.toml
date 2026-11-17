@@ -1,0 +1,30 @@
+[package]
+name = "expat"
+version = "2.7.5"
+release = 1
+desc = "XML parser library"
+license = "MIT"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://prdownloads.sourceforge.net/expat/expat-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

@@ -1,0 +1,41 @@
+[package]
+name = "gcc"
+version = "14.2.0"
+release = 1
+depends = ["gmp", "mpfr", "mpc", "zlib", "binutils"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/gcc/gcc-$VERSION/gcc-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "case $(uname -m) in",
+    "    x86_64) sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64 ;;",
+    "esac",
+    "mkdir -v build && cd build",
+    "../configure --prefix=/usr \\",
+    "    LD=ld \\",
+    "    --enable-languages=c,c++ \\",
+    "    --enable-default-pie \\",
+    "    --enable-default-ssp \\",
+    "    --enable-host-pie \\",
+    "    --disable-multilib \\",
+    "    --disable-bootstrap \\",
+    "    --disable-fixincludes \\",
+    "    --with-system-zlib",
+    "make",
+    "make DESTDIR=\"$1\" install",
+    "ln -svr \"$1/usr/bin/cpp\" \"$1/usr/lib/\"",
+    "mkdir -pv \"$1/usr/share/gdb/auto-load/usr/lib\"",
+    "mv -v \"$1/usr/lib/\"*gdb.py \"$1/usr/share/gdb/auto-load/usr/lib\" 2>/dev/null || true",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

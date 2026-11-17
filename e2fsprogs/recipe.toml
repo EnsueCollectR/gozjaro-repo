@@ -1,0 +1,28 @@
+[package]
+name = "e2fsprogs"
+version = "1.47.2"
+release = 1
+depends = ["util-linux"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/vVERSION/e2fsprogs-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "mkdir -v build && cd build",
+    "../configure --prefix=/usr --sysconfdir=/etc --enable-elf-shlibs \\",
+    "    --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck",
+    "make",
+    "make DESTDIR=\"$1\" install",
+    "rm -fv \"$1/usr/lib/\"{libcom_err,libe2p,libext2fs,libss}.a",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

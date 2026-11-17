@@ -1,0 +1,30 @@
+[package]
+name = "libarchive"
+version = "3.7.7"
+release = 1
+desc = "Multi-format archive and compression library"
+license = "BSD-2-Clause"
+depends = ["zlib", "bzip2", "xz", "zstd", "openssl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/libarchive/libarchive/releases/download/vVERSION/libarchive-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

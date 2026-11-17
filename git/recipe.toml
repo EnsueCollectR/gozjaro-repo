@@ -1,0 +1,25 @@
+[package]
+name = "git"
+version = "2.48.1"
+release = 1
+depends = ["curl", "openssl", "zlib", "expat", "perl", "python3"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.edge.kernel.org/pub/software/scm/git/git-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --with-gitconfig=/etc/gitconfig",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

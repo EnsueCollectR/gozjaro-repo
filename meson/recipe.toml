@@ -1,0 +1,23 @@
+[package]
+name = "meson"
+version = "1.6.1"
+release = 1
+depends = ["python3", "ninja"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/mesonbuild/meson/releases/download/$VERSION/meson-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "pip3 install --no-build-isolation --no-deps --root=\"$1\" --prefix=/usr \"$PWD\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

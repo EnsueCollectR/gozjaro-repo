@@ -1,0 +1,30 @@
+[package]
+name = "zstd"
+version = "1.5.7"
+release = 1
+desc = "Zstandard fast compression algorithm"
+license = "BSD-3-Clause"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/facebook/zstd/releases/download/vVERSION/zstd-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "make prefix=/usr",
+    "make prefix=/usr DESTDIR=\"$1\" install",
+    "rm -v \"$1/usr/lib/libzstd.a\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

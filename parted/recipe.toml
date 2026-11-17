@@ -1,0 +1,25 @@
+[package]
+name = "parted"
+version = "3.6"
+release = 1
+depends = ["util-linux"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://ftp.gnu.org/gnu/parted/parted-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

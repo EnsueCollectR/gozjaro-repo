@@ -1,0 +1,30 @@
+[package]
+name = "libcap"
+version = "2.73"
+release = 1
+desc = "POSIX capabilities library"
+license = "BSD-3-Clause"
+depends = ["attr"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "sed -i '/install -m.*STA/d' libcap/Makefile",
+    "make prefix=/usr lib=lib",
+    "make prefix=/usr lib=lib DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

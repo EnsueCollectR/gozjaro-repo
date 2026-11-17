@@ -1,0 +1,26 @@
+[package]
+name = "gettext"
+version = "0.24"
+release = 1
+depends = ["acl", "ncurses", "libxcrypt"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/gettext/gettext-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+    "chmod -v 0755 \"$1/usr/lib/preloadable_libintl.so\" 2>/dev/null || true",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

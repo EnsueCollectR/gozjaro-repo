@@ -1,0 +1,25 @@
+[package]
+name = "dosfstools"
+version = "4.2"
+release = 1
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/dosfstools/dosfstools/releases/download/vVERSION/dosfstools-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --enable-compat-symlinks",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

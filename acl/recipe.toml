@@ -1,0 +1,30 @@
+[package]
+name = "acl"
+version = "2.3.2"
+release = 1
+desc = "Access control list utilities"
+license = "LGPL-2.1-or-later"
+depends = ["attr"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://download.savannah.gnu.org/releases/acl/acl-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
+
+[meta]
+type = "library"

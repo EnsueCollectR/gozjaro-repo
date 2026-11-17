@@ -1,0 +1,28 @@
+[package]
+name = "python3"
+version = "3.13.2"
+release = 1
+depends = ["zlib", "bzip2", "expat", "libffi", "ncurses", "readline", "openssl", "xz"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr \\",
+    "    --enable-shared \\",
+    "    --with-system-expat \\",
+    "    --enable-optimizations",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

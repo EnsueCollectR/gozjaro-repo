@@ -1,0 +1,30 @@
+[package]
+name = "inetutils"
+version = "2.6"
+release = 1
+depends = ["ncurses", "readline"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.kernel.org/gnu/inetutils/inetutils-$VERSION.tar.xz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr \\",
+    "    --bindir=/usr/bin \\",
+    "    --localstatedir=/var \\",
+    "    --disable-logger --disable-whois --disable-rcp \\",
+    "    --disable-rexec --disable-rlogin --disable-rsh \\",
+    "    --disable-servers",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,26 @@
+[package]
+name = "flit-core"
+version = "3.11.0"
+release = 1
+depends = ["python3"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://pypi.org/packages/source/f/flit-core/flit_core-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps \"$PWD\" || \\",
+    "    python3 -m flit_core.wheel || true",
+    "pip3 install --no-index --no-user --find-links dist --no-cache-dir \\",
+    "    --root=\"$1\" --prefix=/usr flit_core || true",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

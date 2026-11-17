@@ -1,0 +1,26 @@
+[package]
+name = "openssh"
+version = "9.9p1"
+release = 1
+depends = ["openssl", "zlib"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$VERSION.tar.gz", sha256 = "" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "./configure --prefix=/usr --sysconfdir=/etc/ssh \\",
+    "    --with-privsep-path=/var/lib/sshd",
+    "make",
+    "make DESTDIR=\"$1\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
