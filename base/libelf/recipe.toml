@@ -19,8 +19,9 @@ steps = [
     "./configure --prefix=/usr --disable-debuginfod --enable-libdebuginfod=dummy",
     "make -j$(nproc)",
     "make -j$(nproc) -C libelf DESTDIR=\"$DESTDIR\" install",
-    "install -vm644 config/libelf.pc \"$DESTDIR/usr/lib/pkgconfig/\"",
     "rm -v \"$DESTDIR/usr/lib/libelf.a\" 2>/dev/null || true",
+    "install -d \"$DESTDIR/usr/lib/pkgconfig\"",
+    "install -vm644 config/libelf.pc \"$DESTDIR/usr/lib/pkgconfig/\"",
 ]
 
 [install]
