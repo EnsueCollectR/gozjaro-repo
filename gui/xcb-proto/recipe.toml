@@ -1,0 +1,34 @@
+[package]
+name = "xcb-proto"
+version = "1.17.0"
+release = 1
+desc = "XML-XCB protocol descriptions"
+license = "MIT"
+depends = []
+build_depends = ["python"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.17.0.tar.xz", sha256 = "2c1bacd2110f4799f74de6ebb714b94cf6f80fb112316b1219480fd22562148c" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xcb-proto (build + package)",
+    "# source top dir \"xcb-proto-1.17.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

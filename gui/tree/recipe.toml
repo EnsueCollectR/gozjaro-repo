@@ -1,0 +1,32 @@
+[package]
+name = "tree"
+version = "2.2.1"
+release = 1
+desc = "A directory listing program displaying a depth indented list of files"
+license = "GPL-2.0-or-later"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/Old-Man-Programmer/tree/archive/refs/tags/2.2.1.tar.gz" , sha256 = "5caddcbca805131ff590b126d3218019882e4ca10bc9eb490bba51c05b9b3b75"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD tree (build + package)",
+    "# source top dir \"2.2.1\" is stripped by the builder — paths below are flat",
+    "",
+    "make CFLAGS=\"$CFLAGS\" LDFLAGS=\"$LDFLAGS\"",
+    "",
+    "",
+    "install -Dm755 tree \"$DESTDIR/usr/bin/tree\"",
+    "install -Dm644 doc/tree.1 \"$DESTDIR/usr/share/man/man1/tree.1\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

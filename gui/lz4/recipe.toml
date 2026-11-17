@@ -1,0 +1,30 @@
+[package]
+name = "lz4"
+version = "1.11.1"
+release = 1
+desc = "Extremely fast compression algorithm"
+license = "GPL-2.0-or-later"
+depends = ["glibc"]
+build_depends = ["git", "meson", "ninja"]
+
+[source]
+git = "git+https://github.com/lz4/lz4.git#v1.11.1"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD lz4 (build + package)",
+    "",
+    "meson setup --prefix=/usr --buildtype=plain lz4/build/meson build",
+    "meson configure build -Dcontrib=true -Dexamples=true -Dprograms=true",
+    "meson compile -C build",
+    "",
+    "",
+    "meson install -C build --destdir \"$DESTDIR\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

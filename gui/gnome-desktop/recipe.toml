@@ -1,0 +1,40 @@
+[package]
+name = "gnome-desktop"
+version = "44.1"
+release = 1
+desc = "Library with common API for various GNOME modules"
+license = "GPL-2.0-or-later"
+depends = ["glib2", "gtk4", "gsettings-desktop-schemas", "iso-codes", "xkeyboard-config", "libxkbcommon"]
+build_depends = ["meson", "ninja", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gnome-desktop/44/gnome-desktop-44.1.tar.xz" , sha256 = "ae7ca55dc9e08914999741523a17d29ce223915626bd2462a120bf96f47a79ab"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gnome-desktop (build + package)",
+    "# source top dir \"gnome-desktop-44.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddebug_tools=false \\",
+    "-Dgtk_doc=false \\",
+    "-Dintrospection=enabled \\",
+    "-Dsystemd=enabled \\",
+    "-Dudev=enabled \\",
+    "-Ddesktop_docs=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

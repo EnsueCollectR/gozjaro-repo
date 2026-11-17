@@ -1,0 +1,34 @@
+[package]
+name = "libgcrypt"
+version = "1.11.0"
+release = 1
+desc = "General purpose cryptographic library based on the code from GnuPG"
+license = "LGPL-2.1-or-later"
+depends = ["libgpg-error"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2" , sha256 = "09120c9867ce7f2081d6aaa1775386b98c2f2f246135761aae47d81f58685b9c"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libgcrypt (build + package)",
+    "# source top dir \"libgcrypt-1.11.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-padlock-support",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,54 @@
+[package]
+name = "networkmanager"
+version = "1.50.0"
+release = 1
+desc = "Network connection manager and user applications"
+license = "GPL-2.0-or-later"
+depends = ["libnl", "openssl", "curl", "wpa-supplicant"]
+build_depends = ["meson", "ninja", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/NetworkManager/1.50/NetworkManager-1.50.0.tar.xz" , sha256 = "fc03e7388a656cebc454c5d89481626122b1975d7c26babc64dc7e488faa66e3"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD networkmanager (build + package)",
+    "# source top dir \"NetworkManager-1.50.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--buildtype=release \\",
+    "-Dsystemd_journal=true \\",
+    "-Dselinux=false \\",
+    "-Dppp=false \\",
+    "-Dpppd=/usr/bin/pppd \\",
+    "-Dmodem_manager=false \\",
+    "-Dovs=false \\",
+    "-Dnmtui=true \\",
+    "-Dnm_cloud_setup=false \\",
+    "-Dbluez5_dun=false \\",
+    "-Debpf=false \\",
+    "-Dpolkit=false \\",
+    "-Daudit=false \\",
+    "-Dwifi_backend=wpa_supplicant \\",
+    "-Dcrypto=openssl \\",
+    "-Ddocs=false \\",
+    "-Dtests=no \\",
+    "-Dfirewalld_zone=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".COPYING\" \"$DESTDIR/usr/share/licenses/networkmanager/COPYING\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

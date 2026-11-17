@@ -1,0 +1,38 @@
+[package]
+name = "plasma-desktop"
+version = "6.3.0"
+release = 1
+desc = "KDE Plasma Desktop"
+license = "GPL-2.0-or-later"
+depends = ["plasma-workspace", "libplasma", "kiconthemes", "kservice", "kconfigwidgets", "kwindowsystem", "kglobalaccel"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/plasma/6.3.0/plasma-desktop-6.3.0.tar.xz" , sha256 = "bbdbfa874b6c04e3bb33683ea0d09e32616de827df96a1b664a20b2f59d69d0e"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD plasma-desktop (build + package)",
+    "# source top dir \"plasma-desktop-6.3.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DBUILD_KCM_MOUSE_X11=OFF \\",
+    "-DBUILD_KCM_TOUCHPAD_X11=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

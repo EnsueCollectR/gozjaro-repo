@@ -1,0 +1,36 @@
+[package]
+name = "libevdev"
+version = "1.13.3"
+release = 1
+desc = "Wrapper library for evdev devices"
+license = "MIT"
+depends = []
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://www.freedesktop.org/software/libevdev/libevdev-1.13.3.tar.xz" , sha256 = "abf1aace86208eebdd5d3550ffded4c8d73bb405b796d51c389c9d0604cbcfbf"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libevdev (build + package)",
+    "# source top dir \"libevdev-1.13.3\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocumentation=disabled \\",
+    "-Dtests=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

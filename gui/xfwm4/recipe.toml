@@ -1,0 +1,35 @@
+[package]
+name = "xfwm4"
+version = "4.20.0"
+release = 1
+desc = "Xfce's window manager"
+license = "GPL-2.0-or-later"
+depends = ["libxfce4ui", "libxfce4util", "xfconf", "libxcomposite", "libxdamage", "libxrandr", "libxrender"]
+build_depends = ["meson", "ninja", "libxcomposite", "libxdamage"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/xfwm4/4.20/xfwm4-4.20.0.tar.bz2" , sha256 = "a58b63e49397aa0d8d1dcf0636be93c8bb5926779aef5165e0852890190dcf06"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xfwm4 (build + package)",
+    "# source top dir \"xfwm4-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

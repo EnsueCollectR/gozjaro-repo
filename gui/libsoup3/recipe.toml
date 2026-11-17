@@ -1,0 +1,41 @@
+[package]
+name = "libsoup3"
+version = "3.6.4"
+release = 1
+desc = "HTTP client/server library for GNOME"
+license = "LGPL-2.0-or-later"
+depends = ["glib2", "libxml2", "gnutls", "sqlite", "nghttp2"]
+build_depends = ["meson", "ninja", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/libsoup/3.6/libsoup-3.6.4.tar.xz" , sha256 = "9b54c76f5276b05bebcaf2b6c2a141a188fc7bb1d0624eda259dac13a6665c8a"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libsoup3 (build + package)",
+    "# source top dir \"libsoup-3.6.4\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocs=disabled \\",
+    "-Dtests=false \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=enabled \\",
+    "-Dntlm=disabled \\",
+    "-Dsysprof=disabled \\",
+    "-Dpkcs11_tests=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

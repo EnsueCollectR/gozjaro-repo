@@ -1,0 +1,38 @@
+[package]
+name = "sqlite"
+version = "3.47.2"
+release = 1
+desc = "A C library that implements an SQL database engine"
+license = "LicenseRef-PublicDomain"
+depends = ["zlib", "readline"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.sqlite.org/2024/sqlite-autoconf-3470200.tar.gz" , sha256 = "f1b2ee412c28d7472bc95ba996368d6f0cdcf00362affdadb27ed286c179540b"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD sqlite (build + package)",
+    "# source top dir \"sqlite-autoconf-3470200\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--enable-fts5 \\",
+    "--enable-json1 \\",
+    "CFLAGS=\"-DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_ENABLE_DBSTAT_VTAB=1\"",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

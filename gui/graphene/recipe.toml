@@ -1,0 +1,37 @@
+[package]
+name = "graphene"
+version = "1.10.8"
+release = 1
+desc = "A thin layer of graphic data types"
+license = "MIT"
+depends = ["glib2"]
+build_depends = ["meson", "ninja", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://github.com/ebassi/graphene/archive/refs/tags/1.10.8.tar.gz" , sha256 = "922dc109d2dc5dc56617a29bd716c79dd84db31721a8493a13a5f79109a4a4ed"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD graphene (build + package)",
+    "# source top dir \"1.10.8\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \"graphene-1.10.8\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dgtk_doc=false \\",
+    "-Dtests=false \\",
+    "-Dinstalled_tests=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

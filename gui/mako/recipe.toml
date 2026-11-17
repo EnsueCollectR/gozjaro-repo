@@ -1,0 +1,38 @@
+[package]
+name = "mako"
+version = "1.9.0"
+release = 1
+desc = "Lightweight notification daemon for Wayland"
+license = "MIT"
+depends = ["wayland", "cairo", "pango", "glib2"]
+build_depends = ["meson", "ninja", "scdoc", "wayland-protocols", "glib2"]
+
+[source]
+urls = [
+    { url = "https://github.com/emersion/mako/releases/download/v1.9.0/mako-1.9.0.tar.gz" , sha256 = "16d821ef49acfc8503367e1a886d28b2f8578ae9ceb1a7e284888b1e32b3a337"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD mako (build + package)",
+    "# source top dir \"mako-1.9.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dman-pages=disabled \\",
+    "-Dzsh-completions=false \\",
+    "-Dbash-completions=false \\",
+    "-Dsd-bus-provider=libsystemd",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

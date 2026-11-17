@@ -1,0 +1,35 @@
+[package]
+name = "gsettings-desktop-schemas"
+version = "47.1"
+release = 1
+desc = "Shared GSettings schemas for the desktop"
+license = "LGPL-2.1-or-later"
+depends = ["glib2"]
+build_depends = ["meson", "ninja", "gobject-introspection", "python"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gsettings-desktop-schemas/47/gsettings-desktop-schemas-47.1.tar.xz" , sha256 = "a60204d9c9c0a1b264d6d0d134a38340ba5fc6076a34b84da945d8bfcc7a2815"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gsettings-desktop-schemas (build + package)",
+    "# source top dir \"gsettings-desktop-schemas-47.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dintrospection=true",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,37 @@
+[package]
+name = "libxcb"
+version = "1.17.0"
+release = 1
+desc = "X11 client-side library"
+license = "MIT"
+depends = ["libxau", "libxdmcp"]
+build_depends = ["xcb-proto", "libxau", "libxdmcp", "python"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libxcb-1.17.0.tar.xz", sha256 = "599ebf9996710fea71622e6e184f3a8ad5b43d0e5fa8c4e407123c88a59a6d55" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libxcb (build + package)",
+    "# source top dir \"libxcb-1.17.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--disable-static \\",
+    "--without-doxygen",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

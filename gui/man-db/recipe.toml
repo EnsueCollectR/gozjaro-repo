@@ -1,0 +1,44 @@
+[package]
+name = "man-db"
+version = "2.13.0"
+release = 1
+desc = "A utility for reading man pages"
+license = "GPL-2.0-or-later"
+depends = ["gdbm", "groff", "less", "libpipeline"]
+build_depends = ["libpipeline"]
+
+[source]
+urls = [
+    { url = "https://download.savannah.gnu.org/releases/man-db/man-db-2.13.0.tar.xz" , sha256 = "82f0739f4f61aab5eb937d234de3b014e777b5538a28cbd31433c45ae09aefb9"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD man-db (build + package)",
+    "# source top dir \"man-db-2.13.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--with-db=gdbm \\",
+    "--disable-setuid \\",
+    "--enable-cache-owner=bin \\",
+    "--with-browser=less \\",
+    "--with-vgrind=/usr/bin/vgrind \\",
+    "--with-grap=/usr/bin/grap",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 COPYING \"$DESTDIR/usr/share/licenses/man-db/COPYING\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

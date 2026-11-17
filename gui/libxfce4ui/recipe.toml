@@ -1,0 +1,40 @@
+[package]
+name = "libxfce4ui"
+version = "4.20.0"
+release = 1
+desc = "Commonly used Xfce widgets"
+license = "LGPL-2.1-or-later"
+depends = ["gtk3", "xfconf", "libxfce4util", "libx11"]
+build_depends = ["meson", "ninja", "gtk3", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/libxfce4ui/4.20/libxfce4ui-4.20.0.tar.bz2" , sha256 = "75e8996984f20375aadecd5c16f5147c211ed0bd26d7861ab0257561eb76eaee"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libxfce4ui (build + package)",
+    "# source top dir \"libxfce4ui-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=false \\",
+    "-Dgtk-doc=false \\",
+    "-Dlibgtop=false \\",
+    "-Dstartup-notification=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

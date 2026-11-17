@@ -1,0 +1,28 @@
+[package]
+name = "fribidi"
+version = "1.0.18"
+release = 1
+desc = "A Free Implementation of the Unicode Bidirectional Algorithm"
+license = "LGPL-2.1-or-later"
+depends = ["glibc"]
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://github.com/fribidi/fribidi/archive/refs/tags/v1.0.18.tar.gz", sha256 = "01f15887e32a9d84503121e2da031f166ac07ca8e0c350aef2dbbeaad0f75b1d" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD fribidi (build + package)",
+    "meson setup build --prefix=/usr --sysconfdir=/etc -Ddocs=false -Dtests=false",
+    "meson compile -C build -j$(nproc)",
+    "meson install -C build --destdir \"$DESTDIR\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

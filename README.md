@@ -1,10 +1,28 @@
 # gozjaro-repo
 
-Package recipes for the [Gozjaro Linux](https://github.com/Gozjaro) base system.
+Package recipes for [Gozjaro Linux](https://github.com/Gozjaro), built with
+[gozpak](https://github.com/Gozjaro/gozpak).
 
-Built with [gozpak](https://github.com/Gozjaro/gozpak) from LFS 12.3 sources.
+Gozjaro Linux 的软件包 recipe 仓库，使用 [gozpak](https://github.com/Gozjaro/gozpak) 构建。
 
-## Install packages from the repo
+## Layout / 目录结构
+
+- `base/` — the 85-package LFS base system (26.11 build batch, built on the LFS VM).
+  85 包 LFS 基础系统（26.11 批次，在 LFS VM 上编译）。
+- `gui/` — the GUI/desktop batch (191 packages, built on the 7D12 host).
+  GUI/桌面批次（191 包，在 7D12 主机上编译）。
+- `order/base.txt`, `order/gui.txt` — build orders for the batch drivers.
+  批次驱动的构建顺序。
+- `.signing/` (gitignored) — ed25519 seed for `gozpak sign`; the matching
+  public key is embedded in gozpak (`EMBEDDED_PUBKEY`). The seed lives only on
+  packaging hosts (7D12 `~/.secrets/gozjaro-repo.key` and the Mac copy), 0600.
+  签名密钥：与 gozpak 内嵌公钥配对的 ed25519 种子，只保存在打包主机上（0600）。
+
+Version policy since 26.11: recipes track **latest-stable upstream** releases,
+not the LFS book (the base gcc stays at the 26.10 baseline 16.2.0).
+26.11 起版本策略：recipe 跟随上游**最新稳定版**，不跟 LFS book（基础 gcc 保持 26.10 基线 16.2.0）。
+
+## Install packages from the binary repo / 从二进制仓库安装
 
 ```sh
 echo 'https://github.com/Gozjaro/gozjaro-repo/releases/download/stable' > /etc/gozpak/repos.conf
@@ -12,76 +30,40 @@ gozpak sync
 gozpak get curl
 ```
 
-## Build from source
+Binary repos are GitHub releases holding `.gpkg` files plus a signed
+`index.json` / `index.json.sig` (ed25519, verified against the public key
+embedded in gozpak).
+二进制仓库 = GitHub Release（`.gpkg` + 签名 `index.json`/`index.json.sig`，
+gozpak 用内嵌公钥验签）。
 
-Point `GOZPAK_PATH` at this directory:
+## Publish a batch / 发布一个批次
 
-```sh
-export GOZPAK_PATH=/path/to/gozjaro-repo
-gozpak build zlib
-gozpak install zlib
-```
-
-## Maintainer workflow
-
-### 1. Build packages
+Packaging host only (needs the signing seed + `gh`):
 
 ```sh
-export GOZPAK_PATH=/path/to/gozjaro-repo
-gozpak repo-build -f packages.list -o ./repo
+./scripts/publish.sh <dir-with-gpkgs> <release-tag>
 ```
 
-### 2. Generate repo index
+This runs `gozpak index-build` + `gozpak sign` and uploads the `.gpkg` files,
+`index.json` and `index.json.sig` to the GitHub release.
+`scripts/publish.sh` 完成 index-build + sign + 上传 release。
+
+## Build from source / 从源码构建
+
+Point `GOZPAK_PATH` at `base/` or `gui/` (whichever tree you are building),
+then run the batch driver (round-1 order, round-2 for stragglers):
 
 ```sh
-gozpak repo-index ./repo
+GOZPAK_PATH=/opt/gozjaro-repo/base   # or gui/
+gozpak repo-build <pkg>
 ```
 
-### 3. Upload to GitHub Releases
+## Recipe format / recipe 格式
 
-```sh
-./scripts/repo-upload.sh ./repo stable
-```
-
-This uploads all tarballs + `repo.index` as assets on a GitHub Release
-tagged `stable`. Clients point `GOZPAK_REPOS` at:
-
-```
-https://github.com/Gozjaro/gozjaro-repo/releases/download/stable
-```
-
-Requires [GitHub CLI](https://cli.github.com) (`gh`) authenticated.
-
-### Generate real checksums
-
-Recipes ship with `SKIP` checksums. To generate real SHA256 hashes:
-
-```sh
-# Single package
-gozpak checksum zlib
-
-# All packages
-for pkg in */; do [ -f "$pkg/build" ] && gozpak checksum "${pkg%/}"; done
-```
-
-## Recipe format
-
-Each directory is a package recipe:
-
-| File | Required | Description |
-|------|----------|-------------|
-| `build` | yes | Shell script; `$1` = DESTDIR |
-| `version` | yes | `<version> <release>` |
-| `depends` | no | One dependency per line |
-| `sources` | no | Source URLs (`VERSION` is substituted) |
-| `checksums` | no | SHA256 per source, or `SKIP` |
-| `meta` | no | Metadata (type, description, license) |
-
-## Package count
-
-85 packages covering the full LFS 12.3 base system, gozpak itself,
-networking tools (curl, wget, openssh, git, rsync), and disk utilities
-(parted, dosfstools, libarchive).
+Single-file `recipe.toml` per package (spec v1.2), one directory per package:
+`[package]` (name/version/release/desc/license/depends), `[source]`
+(urls + sha256, or git + pinned ref), `[build]` (system + steps), `[install]`.
+每包一个目录、一个 `recipe.toml`（spec v1.2）。
 
 ## License
 

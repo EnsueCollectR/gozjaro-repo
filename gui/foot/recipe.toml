@@ -1,0 +1,37 @@
+[package]
+name = "foot"
+version = "1.17.2"
+release = 1
+desc = "Fast, lightweight and minimalistic Wayland terminal emulator"
+license = "MIT"
+depends = ["wayland", "libxkbcommon", "pixman", "fontconfig", "freetype2", "harfbuzz"]
+build_depends = ["meson", "ninja", "scdoc", "wayland-protocols", "tllist", "fcft"]
+
+[source]
+urls = [
+    { url = "https://codeberg.org/dnkl/foot/releases/download/1.17.2/foot-1.17.2.tar.gz" , sha256 = "de901e5fba00aded452df989a968906309f14221ed606c78c1caff3026c7f541"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD foot (build + package)",
+    "# source top dir \"foot-1.17.2\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dterminfo=disabled \\",
+    "-Dime=true",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".LICENSE\" \"$DESTDIR/usr/share/licenses/foot/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,46 @@
+[package]
+name = "gtk3"
+version = "3.24.52"
+release = 1
+desc = "GObject-based multi-platform GUI toolkit (v3)"
+license = "LGPL-2.1-or-later"
+depends = ["gdk-pixbuf2", "cairo", "pango", "at-spi2-core", "libxrandr", "libxi", "libxcursor", "libxrender", "glib2"]
+build_depends = ["meson", "ninja", "gobject-introspection", "wayland", "wayland-protocols", "libxkbcommon"]
+
+[source]
+git = "git+https://gitlab.gnome.org/GNOME/gtk.git#3.24.52"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gtk3 (build + package)",
+    "",
+    "meson setup gtk build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Ddemos=false \\",
+    "-Dexamples=false \\",
+    "-Dtests=false \\",
+    "-Dinstalled_tests=false \\",
+    "-Dgtk_doc=false \\",
+    "-Dintrospection=true \\",
+    "-Dwayland_backend=true \\",
+    "-Dx11_backend=true \\",
+    "-Dbroadway_backend=false \\",
+    "-Dprint_backends=file \\",
+    "-Dcolord=disabled \\",
+    "-Dcloudproviders=disabled \\",
+    "-Dtracker3=disabled \\",
+    "-Dman=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

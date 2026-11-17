@@ -1,0 +1,38 @@
+[package]
+name = "libwebp"
+version = "1.5.0"
+release = 1
+desc = "WebP image format library"
+license = "BSD-3-Clause"
+depends = []
+build_depends = ["cmake", "ninja"]
+
+[source]
+urls = [
+    { url = "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.5.0.tar.gz" , sha256 = "7d6fab70cf844bf6769077bd5d7a74893f8ffd4dfb42861745750c63c2a5c92c"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libwebp (build + package)",
+    "# source top dir \"libwebp-1.5.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_SHARED_LIBS=ON \\",
+    "-DWEBP_BUILD_EXTRAS=OFF \\",
+    "-DWEBP_BUILD_VWEBP=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

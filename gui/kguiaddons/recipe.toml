@@ -1,0 +1,37 @@
+[package]
+name = "kguiaddons"
+version = "6.10.0"
+release = 1
+desc = "Addons to QtGui"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "wayland"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-wayland", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/frameworks/6.10/kguiaddons-6.10.0.tar.xz" , sha256 = "b3be04077313e559c5a8f66491d5d286cefe947aaf7c8937544ce85af4853ffa"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD kguiaddons (build + package)",
+    "# source top dir \"kguiaddons-6.10.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DWITH_WAYLAND=ON",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

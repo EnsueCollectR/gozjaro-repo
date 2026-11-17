@@ -1,0 +1,37 @@
+[package]
+name = "libplasma"
+version = "6.3.0"
+release = 1
+desc = "Plasma library and runtime components"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "qt6-declarative", "qt6-svg", "qt6-wayland", "kpackage", "kcolorscheme", "kiconthemes", "kwindowsystem", "kconfigwidgets", "kguiaddons", "ki18n", "kcoreaddons"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "wayland-protocols", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/plasma/6.3.0/libplasma-6.3.0.tar.xz" , sha256 = "9c2cde9615a94397da68e4293182768e1fbdc2f419cdb8f00e8b13a366d5978d"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libplasma (build + package)",
+    "# source top dir \"libplasma-6.3.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DPLASMA_X11_DEFAULT_BACKEND=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

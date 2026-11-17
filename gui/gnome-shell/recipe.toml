@@ -1,0 +1,40 @@
+[package]
+name = "gnome-shell"
+version = "47.3"
+release = 1
+desc = "Next generation desktop shell for GNOME"
+license = "GPL-2.0-or-later"
+depends = ["mutter", "gjs", "glib2", "cairo", "pango", "libadwaita", "networkmanager", "gnome-desktop"]
+build_depends = ["meson", "ninja", "gobject-introspection", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gnome-shell/47/gnome-shell-47.3.tar.xz" , sha256 = "783deb9a086511e4a53db10574bfbba695576f698078218ca6c80cb1efec293e"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gnome-shell (build + package)",
+    "# source top dir \"gnome-shell-47.3\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dtests=false \\",
+    "-Dextensions_app=false \\",
+    "-Dextensions_tool=false \\",
+    "-Dman=false \\",
+    "-Dsystemd=true",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

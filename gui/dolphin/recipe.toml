@@ -1,0 +1,36 @@
+[package]
+name = "dolphin"
+version = "24.12.3"
+release = 1
+desc = "File manager for KDE focusing on usability"
+license = "GPL-2.0-or-later"
+depends = ["qt6-base", "qt6-declarative", "kservice", "kcoreaddons", "kiconthemes", "kwindowsystem", "kwidgetsaddons", "kconfigwidgets", "ki18n"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/release-service/24.12.3/src/dolphin-24.12.3.tar.xz" , sha256 = "0bcefb5c6eadddb867924e9052d5431c5b7c98aa4022c3fa2ca16d5b6515b0f0"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD dolphin (build + package)",
+    "# source top dir \"dolphin-24.12.3\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

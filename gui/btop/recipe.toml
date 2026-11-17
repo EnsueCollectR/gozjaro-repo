@@ -1,0 +1,28 @@
+[package]
+name = "btop"
+version = "1.4.8"
+release = 1
+desc = "Monitoring terminal user interface (btop++)"
+license = "GPL-3.0-or-later"
+depends = ["ncurses"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/aristocratos/btop/archive/refs/tags/v1.4.8.tar.gz", sha256 = "67e07c21b770a6d884c5e50ba1d2cfc90732ea57459367d8732ec7ecbeb3be5f" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# cmake (host 7D12); ncurses from host dev libs",
+    "cmake -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release",
+    "cmake --build build -j$(nproc)",
+    "cmake --install build --prefix \"$DESTDIR/usr\" --component btop 2>/dev/null || cmake --install build --prefix \"$DESTDIR/usr\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

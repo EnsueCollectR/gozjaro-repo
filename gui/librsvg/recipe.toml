@@ -1,0 +1,38 @@
+[package]
+name = "librsvg"
+version = "2.59.2"
+release = 1
+desc = "SVG rendering library"
+license = "LGPL-2.1-or-later"
+depends = ["gdk-pixbuf2", "glib2", "cairo", "pango", "harfbuzz"]
+build_depends = ["meson", "ninja", "rust", "cargo", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/librsvg/2.59/librsvg-2.59.2.tar.xz" , sha256 = "ecd293fb0cc338c170171bbc7bcfbea6725d041c95f31385dc935409933e4597"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD librsvg (build + package)",
+    "# source top dir \"librsvg-2.59.2\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocs=disabled \\",
+    "-Dtests=false \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

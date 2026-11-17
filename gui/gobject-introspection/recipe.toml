@@ -1,0 +1,36 @@
+[package]
+name = "gobject-introspection"
+version = "1.82.0"
+release = 1
+desc = "Introspection system for GObject-based libraries"
+license = "LGPL-2.1-or-later"
+depends = ["glib2", "python"]
+build_depends = ["meson", "ninja", "glib2", "python", "cairo"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gobject-introspection/1.82/gobject-introspection-1.82.0.tar.xz" , sha256 = "0f5a4c1908424bf26bc41e9361168c363685080fbdb87a196c891c8401ca2f09"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gobject-introspection (build + package)",
+    "# source top dir \"gobject-introspection-1.82.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddoctool=disabled \\",
+    "-Dtests=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

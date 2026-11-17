@@ -1,0 +1,35 @@
+[package]
+name = "bash-completion"
+version = "2.14.0"
+release = 1
+desc = "Programmable completion for the bash shell"
+license = "GPL-2.0-or-later"
+depends = ["bash"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/scop/bash-completion/releases/download/2.14.0/bash-completion-2.14.0.tar.xz" , sha256 = "5c7494f968280832d6adb5aa19f745a56f1a79df311e59338c5efa6f7285e168"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD bash-completion (build + package)",
+    "# source top dir \"bash-completion-2.14.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --sysconfdir=/etc",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 COPYING \"$DESTDIR/usr/share/licenses/bash-completion/COPYING\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

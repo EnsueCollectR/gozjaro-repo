@@ -1,0 +1,32 @@
+[package]
+name = "nodejs"
+version = "22.14.0"
+release = 1
+desc = "Evented I/O for V8 JavaScript"
+license = "MIT"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz" , sha256 = "69b09dba5c8dcb05c4e4273a4340db1005abeafe3927efda2bc5b249e80437ec"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD nodejs (build + package)",
+    "# source top dir \"node-v22.14.0-linux-x64\" is stripped by the builder — paths below are flat",
+    "",
+    "",
+    "cd \".\"",
+    "install -dm755 \"$DESTDIR/usr\"",
+    "cp -a bin include lib share \"$DESTDIR/usr/\"",
+    "install -Dm644 LICENSE \"$DESTDIR/usr/share/licenses/nodejs/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

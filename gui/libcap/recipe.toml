@@ -1,0 +1,33 @@
+[package]
+name = "libcap"
+version = "2.73"
+release = 1
+desc = "POSIX 1003.1e capabilities"
+license = "GPL-2.0-only"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://mirrors.edge.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.73.tar.xz" , sha256 = "6405f6089cf4cdd8c271540cd990654d78dd0b1989b2d9bda20f933a75a795a5"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libcap (build + package)",
+    "# source top dir \"libcap-2.73\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "make lib=lib prefix=/usr",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" lib=lib prefix=/usr install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

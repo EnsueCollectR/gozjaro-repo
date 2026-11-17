@@ -1,0 +1,36 @@
+[package]
+name = "xfdesktop"
+version = "4.20.0"
+release = 1
+desc = "Xfce's desktop manager"
+license = "GPL-2.0-or-later"
+depends = ["libxfce4ui", "libxfce4util", "xfconf", "garcon", "gdk-pixbuf2"]
+build_depends = ["meson", "ninja", "gtk3"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/xfdesktop/4.20/xfdesktop-4.20.0.tar.bz2" , sha256 = "227041ba80c7f3eb9c99dec817f1132b35d8aec7a4335703f61ba1735cd65632"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xfdesktop (build + package)",
+    "# source top dir \"xfdesktop-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Ddesktop-icons=thunar",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

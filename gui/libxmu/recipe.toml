@@ -1,0 +1,34 @@
+[package]
+name = "libxmu"
+version = "1.2.1"
+release = 1
+desc = "X11 miscellaneous micro-utility library"
+license = "MIT"
+depends = ["libxt", "libxext", "xorgproto"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libXmu-1.2.1.tar.xz", sha256 = "fcb27793248a39e5fcc5b9c4aec40cc0734b3ca76aac3d7d1c264e7f7e14e8b2" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libXmu (build + package)",
+    "# source top dir \"libXmu-1.2.1\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,39 @@
+[package]
+name = "xfce4-session"
+version = "4.20.0"
+release = 1
+desc = "Xfce's session manager"
+license = "GPL-2.0-or-later"
+depends = ["libxfce4ui", "libxfce4util", "xfconf", "dbus"]
+build_depends = ["meson", "ninja", "gtk3"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/xfce4-session/4.20/xfce4-session-4.20.0.tar.bz2" , sha256 = "5229233fe6ee692361cc28724886c5b08e0216d89f09c42d273191d38fd64f85"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xfce4-session (build + package)",
+    "# source top dir \"xfce4-session-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--buildtype=release \\",
+    "-Dsystemd=true \\",
+    "-Delogind=false \\",
+    "-Dpolkit=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

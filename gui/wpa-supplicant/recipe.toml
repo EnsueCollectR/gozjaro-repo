@@ -1,0 +1,41 @@
+[package]
+name = "wpa-supplicant"
+version = "2.11"
+release = 1
+desc = "A utility providing key negotiation for WPA wireless networks"
+license = "BSD-3-Clause"
+depends = ["libnl", "openssl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://w1.fi/releases/wpa_supplicant-2.11.tar.gz" , sha256 = "912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a"},
+    { url = "wpa_supplicant.conf", sha256 = "0d3245b021e2b3ba9790784940456f9fe4ac52268386c02245e2f952268a0291" },
+    { url = "wpa_supplicant@.service", sha256 = "360372a609c3296b301c226fa2b508864a8d4fc96b2209e067257d7aba861755" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD wpa_supplicant (build + package)",
+    "# source top dir \"wpa_supplicant-2.11\" is stripped by the builder — paths below are flat",
+    "",
+    "cat > .config <<'CONFIG'\nCONFIG_BACKEND=file\nCONFIG_CTRL_IFACE=unix\nCONFIG_DEBUG_FILE=y\nCONFIG_DRIVER_NL80211=y\nCONFIG_DRIVER_WEXT=y\nCONFIG_EAP_GTC=y\nCONFIG_EAP_LEAP=y\nCONFIG_EAP_MD5=y\nCONFIG_EAP_MSCHAPV2=y\nCONFIG_EAP_OTP=y\nCONFIG_EAP_PEAP=y\nCONFIG_EAP_TLS=y\nCONFIG_EAP_TTLS=y\nCONFIG_IEEE8021X_EAPOL=y\nCONFIG_IPV6=y\nCONFIG_LIBNL32=y\nCONFIG_PEERKEY=y\nCONFIG_PKCS12=y\nCONFIG_READLINE=y\nCONFIG_SMARTCARD=y\nCONFIG_TLS=openssl\nCONFIG_WPS=y\nCFLAGS += -I/usr/include/libnl3\nCONFIG_MAIN=main\nCONFIG_OS=unix\nCONFIG_ELOOP=eloop\nCONFIG_L2_PACKET=linux\nCONFIG_CTRL_IFACE_UNIX=y\nCONFIG_IEEE80211W=y\nCONFIG_IEEE80211R=y\nCONFIG_HT_OVERRIDES=y\nCONFIG_VHT_OVERRIDES=y\nCONFIG_SAE=y\nCONFIG_OWE=y\nCONFIG_DPP=y\nCONFIG_FILS=y\nCONFIG",
+    "make",
+    "",
+    "",
+    "install -Dm755 wpa_supplicant \"$DESTDIR/usr/bin/wpa_supplicant\"",
+    "install -Dm755 wpa_cli \"$DESTDIR/usr/bin/wpa_cli\"",
+    "install -Dm644 wpa_supplicant.conf \"$DESTDIR/usr/share/doc/wpa_supplicant/wpa_supplicant.conf\"",
+    "install -d \"$DESTDIR/etc/wpa_supplicant\"",
+    "# systemd unit",
+    "install -Dm644 systemd/wpa_supplicant@.service \\",
+    "\"$DESTDIR/usr/lib/systemd/system/wpa_supplicant@.service\"",
+    "install -Dm644 ./COPYING \"$DESTDIR/usr/share/licenses/wpa_supplicant/COPYING\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

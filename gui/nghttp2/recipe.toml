@@ -1,0 +1,38 @@
+[package]
+name = "nghttp2"
+version = "1.64.0"
+release = 1
+desc = "Framing layer of HTTP/2 is implemented as a reusable C library"
+license = "MIT"
+depends = ["openssl", "zlib", "libev", "c-ares"]
+build_depends = ["cmake", "ninja"]
+
+[source]
+urls = [
+    { url = "https://github.com/nghttp2/nghttp2/releases/download/v1.64.0/nghttp2-1.64.0.tar.xz" , sha256 = "88bb94c9e4fd1c499967f83dece36a78122af7d5fb40da2019c56b9ccc6eb9dd"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD nghttp2 (build + package)",
+    "# source top dir \"nghttp2-1.64.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DENABLE_LIB_ONLY=ON \\",
+    "-DENABLE_STATIC_LIB=OFF \\",
+    "-DENABLE_SHARED_LIB=ON",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,34 @@
+[package]
+name = "libxau"
+version = "1.0.12"
+release = 1
+desc = "X11 authorisation library"
+license = "MIT"
+depends = ["xorgproto"]
+build_depends = ["xorgproto"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libXau-1.0.12.tar.xz", sha256 = "74d0e4dfa3d39ad8939e99bda37f5967aba528211076828464d2777d477fc0fb" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libXau (build + package)",
+    "# source top dir \"libXau-1.0.12\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

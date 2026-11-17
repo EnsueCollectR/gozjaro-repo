@@ -1,0 +1,35 @@
+[package]
+name = "swaybg"
+version = "1.2.1"
+release = 1
+desc = "Wallpaper tool for Wayland compositors"
+license = "MIT"
+depends = ["wayland", "cairo", "gdk-pixbuf2"]
+build_depends = ["meson", "ninja", "wayland-protocols", "scdoc"]
+
+[source]
+urls = [
+    { url = "https://github.com/swaywm/swaybg/releases/download/v1.2.1/swaybg-1.2.1.tar.gz" , sha256 = "6af1fdf0e57b1cc5345febed786b761fea0e170943a82639f94cfaed7df84f8f"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD swaybg (build + package)",
+    "# source top dir \"swaybg-1.2.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dman-pages=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

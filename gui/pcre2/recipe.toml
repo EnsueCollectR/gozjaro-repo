@@ -1,0 +1,44 @@
+[package]
+name = "pcre2"
+version = "10.45"
+release = 1
+desc = "A library that implements Perl 5-style regular expressions"
+license = "BSD-3-Clause"
+depends = ["zlib", "bzip2"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.45/pcre2-10.45.tar.bz2" , sha256 = "21547f3516120c75597e5b30a992e27a592a31950b5140e7b8bfde3f192033c4"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD pcre2 (build + package)",
+    "# source top dir \"pcre2-10.45\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--enable-unicode \\",
+    "--enable-jit \\",
+    "--enable-pcre2-8 \\",
+    "--enable-pcre2-16 \\",
+    "--enable-pcre2-32 \\",
+    "--enable-pcre2grep-libz \\",
+    "--enable-pcre2grep-libbz2 \\",
+    "--disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 LICENCE \"$DESTDIR/usr/share/licenses/pcre2/LICENCE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

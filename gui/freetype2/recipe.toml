@@ -1,0 +1,38 @@
+[package]
+name = "freetype2"
+version = "2.13.3"
+release = 1
+desc = "Font rendering library"
+license = "GPL-2.0-or-later OR FTL"
+depends = ["zlib", "bzip2", "libpng"]
+build_depends = ["meson", "ninja", "libpng"]
+
+[source]
+urls = [
+    { url = "https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz" , sha256 = "0550350666d427c74daeb85d5ac7bb353acba5f76956395995311a9c6f063289"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD freetype2 (build + package)",
+    "# source top dir \"freetype-2.13.3\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dharfbuzz=disabled \\",
+    "-Dbzip2=enabled \\",
+    "-Dzlib=enabled \\",
+    "-Dpng=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

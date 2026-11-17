@@ -1,0 +1,41 @@
+[package]
+name = "harfbuzz"
+version = "10.2.0"
+release = 1
+desc = "OpenType text shaping engine"
+license = "MIT"
+depends = ["freetype2"]
+build_depends = ["meson", "ninja", "freetype2", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://github.com/harfbuzz/harfbuzz/releases/download/10.2.0/harfbuzz-10.2.0.tar.xz" , sha256 = "620e3468faec2ea8685d32c46a58469b850ef63040b3565cde05959825b48227"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD harfbuzz (build + package)",
+    "# source top dir \"harfbuzz-10.2.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dglib=disabled \\",
+    "-Dcairo=disabled \\",
+    "-Dchafa=disabled \\",
+    "-Ddocs=disabled \\",
+    "-Dtests=disabled \\",
+    "-Dintrospection=disabled \\",
+    "-Dfreetype=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

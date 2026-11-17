@@ -1,0 +1,38 @@
+[package]
+name = "xfce4-panel"
+version = "4.20.0"
+release = 1
+desc = "Panel for the Xfce desktop environment"
+license = "GPL-2.0-or-later"
+depends = ["libxfce4ui", "libxfce4util", "xfconf", "garcon", "cairo"]
+build_depends = ["meson", "ninja", "gtk3", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/xfce4-panel/4.20/xfce4-panel-4.20.0.tar.bz2" , sha256 = "ff33cd5f5d16c2193fe305f4878d82cd8d2feea92f2594bcd27b2b5c392d43b8"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xfce4-panel (build + package)",
+    "# source top dir \"xfce4-panel-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=false \\",
+    "-Dgtk-doc=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

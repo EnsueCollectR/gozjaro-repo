@@ -1,0 +1,36 @@
+[package]
+name = "rust"
+version = "1.85.0"
+release = 1
+desc = "Systems programming language focused on safety and performance"
+license = "MIT"
+depends = []
+build_depends = ["python", "ninja", "cmake", "curl"]
+
+[source]
+urls = [
+    { url = "https://static.rust-lang.org/dist/rustc-1.85.0-src.tar.xz" , sha256 = "d542c397217b5ba5bac7eb274f5ca62d031f61842c3ba4cc5328c709c38ea1e7"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD rust (build + package)",
+    "# source top dir \"rustc-1.85.0-src\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "cat > config.toml <<EOF\n[build]\ndocs = false\nextended = true\ntools = [\"cargo\", \"rustfmt\", \"clippy\"]\npython = \"python3\"\n\n[install]\nprefix = \"/usr\"\n\n[llvm]\ndownload-ci-llvm = false\n\n[rust]\nchannel = \"stable\"\ncodegen-units = 1\ndebuginfo-level = 0\nEOF",
+    "python3 x.py build --stage 2",
+    "",
+    "",
+    "cd \".\"",
+    "DESTDIR=\"$DESTDIR\" python3 x.py install --stage 2",
+    "install -Dm644 LICENSE-MIT \"$DESTDIR/usr/share/licenses/rust/LICENSE-MIT\"",
+    "install -Dm644 LICENSE-APACHE \"$DESTDIR/usr/share/licenses/rust/LICENSE-APACHE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

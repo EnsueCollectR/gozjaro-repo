@@ -1,0 +1,37 @@
+[package]
+name = "libjpeg-turbo"
+version = "3.1.0"
+release = 1
+desc = "JPEG image codec with accelerated baseline compression and decompression"
+license = "BSD-3-Clause"
+depends = []
+build_depends = ["cmake", "ninja", "nasm"]
+
+[source]
+urls = [
+    { url = "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.0/libjpeg-turbo-3.1.0.tar.gz" , sha256 = "9564c72b1dfd1d6fe6274c5f95a8d989b59854575d4bbee44ade7bc17aa9bc93"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libjpeg-turbo (build + package)",
+    "# source top dir \"libjpeg-turbo-3.1.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DCMAKE_INSTALL_LIBDIR=lib \\",
+    "-DWITH_JPEG8=ON",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

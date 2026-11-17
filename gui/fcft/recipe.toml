@@ -1,0 +1,34 @@
+[package]
+name = "fcft"
+version = "3.3.3"
+release = 1
+desc = "Simple library for font loading and glyph rasterization"
+license = "MIT"
+depends = ["fontconfig", "freetype2", "harfbuzz", "libutf8proc", "pixman"]
+build_depends = ["meson", "scdoc", "tllist"]
+
+[source]
+urls = [
+    { url = "https://codeberg.org/dnkl/fcft/archive/3.3.3.tar.gz" , sha256 = "b0c0f4a599f43723736c8565b8b84337c4195077f07f1bb8bb3252bb13a2306a"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD fcft (build + package)",
+    "",
+    "arch-meson fcft build \\",
+    "-Dgrapheme-shaping=enabled \\",
+    "-Drun-shaping=enabled",
+    "",
+    "",
+    "meson install -C build --destdir \"$DESTDIR\"",
+    "install -Dm0644 -t \"$DESTDIR/usr/share/licenses/fcft/\" \"fcft/LICENSE\"",
+    "install -Dm0644 \"fcft/unicode/license.txt\" \"$DESTDIR/usr/share/licenses/fcft/LICENSE.unicode\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

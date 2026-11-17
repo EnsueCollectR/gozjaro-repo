@@ -1,0 +1,31 @@
+[package]
+name = "ttf-dejavu"
+version = "2.37"
+release = 1
+desc = "Font family based on the Bitstream Vera Fonts with a wider range of characters"
+license = "custom"
+depends = ["fontconfig"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://sourceforge.net/projects/dejavu/files/dejavu/2.37/dejavu-fonts-ttf-2.37.tar.bz2" , sha256 = "fa9ca4d13871dd122f61258a80d01751d603b4d3ee14095d65453b4e846e17d7"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD ttf-dejavu (build + package)",
+    "# source top dir \"dejavu-fonts-ttf-2.37\" is stripped by the builder — paths below are flat",
+    "",
+    "",
+    "cd \".\"",
+    "install -Dm644 ttf/*.ttf -t \"$DESTDIR/usr/share/fonts/TTF\"",
+    "install -Dm644 LICENSE \"$DESTDIR/usr/share/licenses/ttf-dejavu/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

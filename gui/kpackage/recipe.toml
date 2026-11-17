@@ -1,0 +1,36 @@
+[package]
+name = "kpackage"
+version = "6.10.0"
+release = 1
+desc = "Library for installing and loading packages of non binary files"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "kcoreaddons", "ki18n", "karchive"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/frameworks/6.10/kpackage-6.10.0.tar.xz" , sha256 = "0f49c1cdb49e01c6dce372abbc9814ccbd74b7f2b130c7310674345e3498cec1"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD kpackage (build + package)",
+    "# source top dir \"kpackage-6.10.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

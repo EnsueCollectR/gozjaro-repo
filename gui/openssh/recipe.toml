@@ -1,0 +1,41 @@
+[package]
+name = "openssh"
+version = "9.9p1"
+release = 1
+desc = "Premier connectivity tool for remote login with the SSH protocol"
+license = "BSD-2-Clause"
+depends = ["zlib", "openssl"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.9p1.tar.gz" , sha256 = "b343fbcdbff87f15b1986e6e15d6d4fc9a7d36066be6b7fb507087ba8f966c02"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD openssh (build + package)",
+    "# source top dir \"openssh-9.9p1\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc/ssh \\",
+    "--with-ssl-engine \\",
+    "--with-privsep-path=/var/empty \\",
+    "--with-default-path=/usr/local/sbin:/usr/local/bin:/usr/bin \\",
+    "--without-pam",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 LICENCE \"$DESTDIR/usr/share/licenses/openssh/LICENCE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

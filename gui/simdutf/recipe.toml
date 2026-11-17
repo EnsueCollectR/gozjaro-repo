@@ -1,0 +1,36 @@
+[package]
+name = "simdutf"
+version = "9.2.2"
+release = 1
+desc = "Unicode routines (UTF8, UTF16, UTF32) and Base64"
+license = "Apache-2.0 OR MIT"
+depends = ["glibc", "libgcc"]
+build_depends = ["cmake", "git"]
+
+[source]
+git = "git+https://github.com/simdutf/simdutf.git#v9.2.2"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD simdutf (build + package)",
+    "",
+    "cmake -B build \\",
+    "-S \"simdutf\" \\",
+    "-D CMAKE_BUILD_TYPE=None \\",
+    "-D CMAKE_INSTALL_PREFIX=/usr \\",
+    "-D BUILD_SHARED_LIBS=ON \\",
+    "-D SIMDUTF_CXX_STANDARD=20",
+    "",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+    "install -Dm644 \"simdutf/LICENSE-MIT\" -t \"$DESTDIR/usr/share/licenses/simdutf/\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

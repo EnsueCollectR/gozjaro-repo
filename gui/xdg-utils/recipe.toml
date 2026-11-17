@@ -1,0 +1,32 @@
+[package]
+name = "xdg-utils"
+version = "1.2.1"
+release = 1
+desc = "Command line tools that assist applications with desktop integration"
+license = "MIT"
+depends = []
+build_depends = ["xmlto", "docbook-xsl"]
+
+[source]
+git = "git+https://gitlab.freedesktop.org/xdg/xdg-utils.git#356c380ad6fecc9ce6bea1f6a77986ba67402c80"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xdg-utils (build + package)",
+    "",
+    "cd xdg-utils",
+    "./configure --prefix=/usr",
+    "make",
+    "",
+    "",
+    "cd xdg-utils",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 LICENSE \"$DESTDIR/usr/share/licenses/xdg-utils/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,34 @@
+[package]
+name = "libxfixes"
+version = "6.0.1"
+release = 1
+desc = "X11 miscellaneous fixes extension library"
+license = "MIT"
+depends = ["libx11"]
+build_depends = ["xorgproto", "libx11"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libXfixes-6.0.1.tar.xz", sha256 = "b695f93cd2499421ab02d22744458e650ccc88c1d4c8130d60200213abc02d58" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libXfixes (build + package)",
+    "# source top dir \"libXfixes-6.0.1\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,37 @@
+[package]
+name = "fastfetch"
+version = "v1.0.1"
+release = 1
+desc = "A fast system info tool written in C"
+license = "MIT"
+depends = []
+build_depends = ["cmake", "ninja"]
+
+[source]
+urls = [
+    { url = "https://github.com/fastfetch-cli/fastfetch/archive/refs/tags/v1.0.1.tar.gz", sha256 = "ca8052de2a8c1fa43f7e55bb2703e48e4880debcd88f0b23e080535e22ae319f"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD fastfetch (build + package)",
+    "# source top dir \"2.30.1\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \"fastfetch-2.30.1\" \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DENABLE_SYSTEM_YYJSON=OFF \\",
+    "-GNinja",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+    "install -Dm644 \"fastfetch-2.30.1/LICENSE\" \"$DESTDIR/usr/share/licenses/fastfetch/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

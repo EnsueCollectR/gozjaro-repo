@@ -1,0 +1,24 @@
+[package]
+name = "libva"
+version = "2.24.1"
+release = 1
+desc = "Video Acceleration (VA) API for Linux"
+license = "MIT"
+depends = ["libdrm", "libx11", "libxcb", "libxext", "libxfixes", "wayland"]
+build_depends = ["meson", "ninja"]
+backup = ["etc/libva.conf"]
+
+[source]
+urls = [
+    { url = "https://github.com/intel/libva/archive/refs/tags/2.24.1.tar.gz", sha256 = "0b4a3649ee8d683b9cce2ef094df4fb039d276c0cef7e49337c43d3b297b9f42" },
+]
+patches = []
+
+[build]
+steps = [
+    "CFLAGS=-DENABLE_VA_MESSAGING meson setup build --prefix=/usr --sysconfdir=/etc",
+    "meson compile -C build -j$(nproc)",
+    "meson install -C build",
+    "install -Dm644 COPYING $DESTDIR/usr/share/licenses/libva/COPYING",
+    "install -Dm 644 /dev/stdin $DESTDIR/etc/libva.conf <<END\nLIBVA_MESSAGING_LEVEL=1\nEND",
+]

@@ -1,0 +1,51 @@
+[package]
+name = "libjpeg"
+version = "3.2.1"
+release = 1
+desc = "JPEG image codec with accelerated baseline compression and decompression"
+license = "BSD-3-Clause"
+depends = ["glibc"]
+build_depends = ["cmake", "ninja", "nasm"]
+
+[source]
+urls = [
+    { url = "https://github.com/libjpeg-turbo/libjpeg-turbo//releases/download/3.2.1/libjpeg-turbo-3.2.1.tar.gz" , sha256 = "c27ad72a68da151177929aa969ae773a2da5ac2af9ce946079314fdac8cece7f"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libjpeg (build + package)",
+    "# source top dir \"libjpeg-turbo-3.2.1\" is stripped by the builder — paths below are flat",
+    "",
+    "local cmake_options=(",
+    "-B build",
+    "-D CMAKE_INSTALL_PREFIX=/usr",
+    "-D CMAKE_INSTALL_LIBDIR=/usr/lib",
+    "-D CMAKE_BUILD_TYPE=None",
+    "-D ENABLE_STATIC=OFF",
+    "-D WITH_JPEG8=ON",
+    "-G Ninja",
+    "-S .",
+    "-W no-dev",
+    ")",
+    "",
+    "cmake \"${cmake_options[@]}\"",
+    "cmake --build build -v",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build -v",
+    "",
+    "# header required by some dependents",
+    "# https://bugs.archlinux.org/task/24787",
+    "install -vDm 644 .src/jpegint.h \"$DESTDIR/usr/include\"",
+    "",
+    "install -vDm 644 .LICENSE.md -t \"$DESTDIR/usr/share/licenses/libjpeg/\"",
+    "install -vDm 644 .README.ijg -t \"$DESTDIR/usr/share/licenses/libjpeg/\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

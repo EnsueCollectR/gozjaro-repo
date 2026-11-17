@@ -1,0 +1,36 @@
+[package]
+name = "kconfigwidgets"
+version = "6.10.0"
+release = 1
+desc = "Widgets for configuration dialogs"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "kwidgetsaddons", "kconfig", "kcoreaddons", "kcolorscheme", "ki18n", "kguiaddons"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/frameworks/6.10/kconfigwidgets-6.10.0.tar.xz" , sha256 = "5cb17bcafaae3eefc144fb1014f14cb9998c9e13b714808d940ab20d9c0fb51c"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD kconfigwidgets (build + package)",
+    "# source top dir \"kconfigwidgets-6.10.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

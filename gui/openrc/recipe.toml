@@ -1,0 +1,42 @@
+[package]
+name = "openrc"
+version = "0.55.1"
+release = 1
+desc = "Dependency-based init system"
+license = "BSD-2-Clause"
+depends = []
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://github.com/OpenRC/openrc/archive/refs/tags/0.55.1.tar.gz" , sha256 = "102e53825031361e4d96a5c0a7eb192bd64b0a6b227bb0568651efc8f5972952"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD openrc (build + package)",
+    "# source top dir \"0.55.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--buildtype=release \\",
+    "-Dpam=false \\",
+    "-Daudit=disabled \\",
+    "-Dselinux=disabled \\",
+    "-Dsysvinit=false \\",
+    "-Dnewnet=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 LICENSE \"$DESTDIR/usr/share/licenses/openrc/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

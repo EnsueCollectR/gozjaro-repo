@@ -1,0 +1,47 @@
+[package]
+name = "waybar"
+version = "0.11.0"
+release = 1
+desc = "Highly customizable Wayland bar for Sway and other WMs"
+license = "MIT"
+depends = ["wayland", "libxkbcommon", "pango", "cairo", "glib2", "pipewire", "alsa-lib", "json-c", "libnl"]
+build_depends = ["meson", "ninja", "wayland-protocols", "scdoc", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://github.com/Alexays/Waybar/archive/refs/tags/0.11.0.tar.gz" , sha256 = "6a0e9f0f7f2eff503951958cbb16dc39041c0b67e86c35154e8507677c61be9d"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD waybar (build + package)",
+    "# source top dir \"0.11.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \"Waybar-0.11.0\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dman-pages=disabled \\",
+    "-Dtests=disabled \\",
+    "-Dgtk-layer-shell=disabled \\",
+    "-Dmpd=disabled \\",
+    "-Dmpris=disabled \\",
+    "-Dnls=disabled \\",
+    "-Dupower_glib=disabled \\",
+    "-Dpulseaudio=disabled \\",
+    "-Dsystemd=enabled \\",
+    "-Dlibnl=enabled \\",
+    "-Dlibudev=enabled \\",
+    "-Dalsa=enabled \\",
+    "-Dipcglib=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

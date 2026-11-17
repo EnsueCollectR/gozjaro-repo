@@ -1,0 +1,21 @@
+[package]
+name = "vte3"
+version = "0.84.1"
+release = 1
+desc = "Virtual Terminal Emulator widget (libvte)"
+license = "LGPL-3.0-or-later"
+depends = ["cairo", "fribidi", "glib2", "gnutls", "icu", "lz4", "pango", "pcre2", "simdutf"]
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://gitlab.gnome.org/GNOME/vte/-/archive/0.84.1/vte-0.84.1.tar.gz", sha256 = "9f73468982a339cd1eb942beb7d348a5564c9ed48473ad1690c791f8474916ec" },
+]
+patches = []
+
+[build]
+steps = [
+    "meson setup build --prefix=/usr --sysconfdir=/etc -Ddocs=false -Dtests=false -Dexemplar=false",
+    "meson compile -C build -j$(nproc)",
+    "meson install -C build",
+]

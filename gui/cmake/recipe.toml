@@ -1,0 +1,43 @@
+[package]
+name = "cmake"
+version = "3.31.6"
+release = 1
+desc = "A cross-platform open-source make system"
+license = "BSD-3-Clause"
+depends = ["libarchive", "curl", "expat", "zlib"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.cmake.org/files/v3.31/cmake-3.31.6.tar.gz" , sha256 = "653427f0f5014750aafff22727fb2aa60c6c732ca91808cfb78ce22ddd9e55f0"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD cmake (build + package)",
+    "# source top dir \"cmake-3.31.6\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./bootstrap \\",
+    "--prefix=/usr \\",
+    "--system-libs \\",
+    "--no-system-jsoncpp \\",
+    "--no-system-librhash \\",
+    "--no-system-cppdap \\",
+    "--mandir=/share/man \\",
+    "--datadir=/share/cmake \\",
+    "-- -DCMAKE_BUILD_TYPE=Release",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 Copyright.txt \"$DESTDIR/usr/share/licenses/cmake/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

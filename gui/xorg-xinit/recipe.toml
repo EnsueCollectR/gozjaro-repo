@@ -1,0 +1,34 @@
+[package]
+name = "xorg-xinit"
+version = "1.4.2"
+release = 1
+desc = "X.Org initialisation program"
+license = "MIT"
+depends = ["xorg-server", "bash"]
+build_depends = ["xorgproto"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/app/xinit-1.4.2.tar.xz", sha256 = "b7d8dc8d22ef9f15985a10b606ee4f2aad6828befa437359934647e88d331f23" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xorg-xinit (build + package)",
+    "# source top dir \"xinit-1.4.2\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --with-xinitdir=/etc/X11/xinit",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

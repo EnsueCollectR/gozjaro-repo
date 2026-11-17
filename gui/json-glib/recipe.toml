@@ -1,0 +1,37 @@
+[package]
+name = "json-glib"
+version = "1.10.6"
+release = 1
+desc = "JSON library built on top of GLib"
+license = "LGPL-2.1-or-later"
+depends = ["glib2"]
+build_depends = ["meson", "ninja", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/json-glib/1.10/json-glib-1.10.6.tar.xz" , sha256 = "77f4bcbf9339528f166b8073458693f0a20b77b7059dbc2db61746a1928b0293"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD json-glib (build + package)",
+    "# source top dir \"json-glib-1.10.6\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocs=disabled \\",
+    "-Dtests=false \\",
+    "-Dman=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,37 @@
+[package]
+name = "alsa-lib"
+version = "1.2.13"
+release = 1
+desc = "An alternative implementation of Linux sound support"
+license = "LGPL-2.1-or-later"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.13.tar.bz2" , sha256 = "8c4ff37553cbe89618e187e4c779f71a9bb2a8b27b91f87ed40987cc9233d8f6"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD alsa-lib (build + package)",
+    "# source top dir \"alsa-lib-1.2.13\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--without-debug \\",
+    "--disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

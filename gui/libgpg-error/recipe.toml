@@ -1,0 +1,34 @@
+[package]
+name = "libgpg-error"
+version = "1.51"
+release = 1
+desc = "Support library for libgcrypt and GnuPG"
+license = "GPL-2.0-or-later"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.51.tar.bz2" , sha256 = "be0f1b2db6b93eed55369cdf79f19f72750c8c7c39fc20b577e724545427e6b2"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libgpg-error (build + package)",
+    "# source top dir \"libgpg-error-1.51\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --sysconfdir=/etc",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

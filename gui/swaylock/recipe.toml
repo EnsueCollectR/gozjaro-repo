@@ -1,0 +1,36 @@
+[package]
+name = "swaylock"
+version = "1.8.0"
+release = 1
+desc = "Screen locker for Wayland"
+license = "MIT"
+depends = ["wayland", "cairo", "gdk-pixbuf2"]
+build_depends = ["meson", "ninja", "wayland-protocols", "scdoc"]
+
+[source]
+urls = [
+    { url = "https://github.com/swaywm/swaylock/releases/download/v1.8.0/swaylock-1.8.0.tar.gz" , sha256 = "6a1175442380b87b2d2868c4a5366ee3592163158d02e3a7fbf3a0bfe07d8b00"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD swaylock (build + package)",
+    "# source top dir \"swaylock-1.8.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dman-pages=disabled \\",
+    "-Dpam=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

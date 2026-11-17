@@ -1,0 +1,36 @@
+[package]
+name = "kcoreaddons"
+version = "6.10.0"
+release = 1
+desc = "Addons to QtCore"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "ki18n"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/frameworks/6.10/kcoreaddons-6.10.0.tar.xz" , sha256 = "89bf28747915e987cab21c77397b0971caffa1258b6f575543d73d4188184a72"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD kcoreaddons (build + package)",
+    "# source top dir \"kcoreaddons-6.10.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

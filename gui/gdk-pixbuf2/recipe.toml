@@ -1,0 +1,42 @@
+[package]
+name = "gdk-pixbuf2"
+version = "2.42.12"
+release = 1
+desc = "Image loading library"
+license = "LGPL-2.1-or-later"
+depends = ["glib2", "libpng", "libjpeg"]
+build_depends = ["meson", "ninja", "glib2", "libpng", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.12.tar.xz" , sha256 = "b9505b3445b9a7e48ced34760c3bcb73e966df3ac94c95a148cb669ab748e3c7"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gdk-pixbuf2 (build + package)",
+    "# source top dir \"gdk-pixbuf-2.42.12\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dinstalled_tests=false \\",
+    "-Dman=false \\",
+    "-Dgtk_doc=false \\",
+    "-Djpeg=enabled \\",
+    "-Dpng=enabled \\",
+    "-Dtiff=disabled \\",
+    "-Dintrospection=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".COPYING\" \"$DESTDIR/usr/share/licenses/gdk-pixbuf2/COPYING\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

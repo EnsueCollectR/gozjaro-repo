@@ -1,0 +1,39 @@
+[package]
+name = "libinput"
+version = "1.26.2"
+release = 1
+desc = "Input device management and event handling library"
+license = "MIT"
+depends = ["libevdev", "mtdev"]
+build_depends = ["meson", "ninja", "libevdev", "mtdev"]
+
+[source]
+urls = [
+    { url = "https://gitlab.freedesktop.org/libinput/libinput/-/archive/1.26.2/libinput-1.26.2.tar.gz", sha256 = "5c1c4150f217fea1db2d1fd88e2607b2f1928cfde65c34da65a9f24dcfd69464" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libinput (build + package)",
+    "# source top dir \"libinput-1.26.2\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocumentation=false \\",
+    "-Dtests=false \\",
+    "-Ddebug-gui=false \\",
+    "-Dlibwacom=false \\",
+    "-Dudev-dir=/usr/lib/udev",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

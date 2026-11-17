@@ -1,0 +1,37 @@
+[package]
+name = "libxkbcommon"
+version = "1.7.0"
+release = 1
+desc = "Keymap handling library for toolkits and window systems"
+license = "MIT"
+depends = ["xkeyboard-config"]
+build_depends = ["meson", "ninja", "bison", "wayland", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://xkbcommon.org/download/libxkbcommon-1.7.0.tar.xz" , sha256 = "65782f0a10a4b455af9c6baab7040e2f537520caa2ec2092805cdfd36863b247"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libxkbcommon (build + package)",
+    "# source top dir \"libxkbcommon-1.7.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Denable-docs=false \\",
+    "-Denable-wayland=true \\",
+    "-Denable-x11=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

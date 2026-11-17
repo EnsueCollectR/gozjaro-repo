@@ -1,0 +1,41 @@
+[package]
+name = "sway"
+version = "1.10"
+release = 1
+desc = "Tiling Wayland compositor and window manager"
+license = "MIT"
+depends = ["wlroots", "wayland", "libxkbcommon", "cairo", "pango", "gdk-pixbuf2", "json-c", "pcre2"]
+build_depends = ["meson", "ninja", "scdoc", "wlroots", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://github.com/swaywm/sway/releases/download/1.10/sway-1.10.tar.gz" , sha256 = "7472a7f11150212e0bed0bd0af9f591c9caac9f9ea87c35486e475a21f5ce81f"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD sway (build + package)",
+    "# source top dir \"sway-1.10\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dman-pages=disabled \\",
+    "-Ddefault-wallpaper=true \\",
+    "-Dzsh-completions=false \\",
+    "-Dbash-completions=false \\",
+    "-Dfish-completions=false \\",
+    "-Dxwayland=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".LICENSE\" \"$DESTDIR/usr/share/licenses/sway/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

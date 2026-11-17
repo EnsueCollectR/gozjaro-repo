@@ -1,0 +1,46 @@
+[package]
+name = "sudo"
+version = "1.9.16p2"
+release = 1
+desc = "Give certain users the ability to run some commands as root"
+license = "custom"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://www.sudo.ws/dist/sudo-1.9.16p2.tar.gz", sha256 = "976aa56d3e3b2a75593307864288addb748c9c136e25d95a9cc699aafa77239c" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD sudo (build + package)",
+    "# source top dir \"sudo-1.9.16p2\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--libexecdir=/usr/lib \\",
+    "--with-secure-path \\",
+    "--with-all-insults \\",
+    "--with-env-editor \\",
+    "--without-pam \\",
+    "--with-ssl=openssl \\",
+    "--with-rundir=/run/sudo \\",
+    "--with-vardir=/var/db/sudo \\",
+    "--with-iologdir=/var/log/sudo-io \\",
+    "--disable-root-mailer",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+    "install -Dm644 LICENSE.md \"$DESTDIR/usr/share/licenses/sudo/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

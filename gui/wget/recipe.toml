@@ -1,0 +1,38 @@
+[package]
+name = "wget"
+version = "1.24.5"
+release = 1
+desc = "Network utility to retrieve files from the Web"
+license = "GPL-3.0-or-later"
+depends = ["zlib", "openssl", "pcre2"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://ftp.gnu.org/gnu/wget/wget-1.24.5.tar.gz" , sha256 = "fa2dc35bab5184ecbc46a9ef83def2aaaa3f4c9f3c97d4bd19dcb07d4da637de"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD wget (build + package)",
+    "# source top dir \"wget-1.24.5\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--with-ssl=openssl \\",
+    "--disable-nls",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,40 @@
+[package]
+name = "jdk"
+version = "21.0.6"
+release = 1
+desc = "OpenJDK Java 21 Development Kit (source build, Temurin boot JDK)"
+license = "GPL-2.0-with-classpath-exception"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.6+7.tar.gz", strip_topdir = false, sha256 = "260e81ac93d66845c7debcf3b4a1f53b0fcf639124cc3899765f57700539259c" },
+    { url = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.6%2B7/OpenJDK21U-jdk_x64_linux_hotspot_21.0.6_7.tar.gz", strip_topdir = false, sha256 = "a2650fba422283fbed20d936ce5d2a52906a5414ec17b2f7676dddb87201dbae" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# jdk21u source tree first (kept topdir => cwd = jdk21u-jdk-21.0.6-7)",
+    "# temurin boot JDK extracts as sibling ../jdk-21.0.6+7 (cwd = extract root)",
+    "cd jdk21u-jdk-21.0.6-7",
+    "bash configure --prefix=/usr --with-boot-jdk=../jdk-21.0.6+7 --with-debug-level=release --with-jvm-variants=server --with-version-pre= --with-version-opt= --with-vendor-name=Gozjaro --with-vendor-url=https://github.com/Gozjaro --enable-unlimited-crypto --disable-warnings-as-errors --with-extra-cflags=-O2 --with-extra-cxxflags=-O2",
+    "make images -j$(nproc)",
+    "mkdir -p $DESTDIR/usr/lib/jvm/java-21-openjdk",
+    "cp -a build/linux-x86_64-server-release/images/jdk/. $DESTDIR/usr/lib/jvm/java-21-openjdk/",
+    "mkdir -p $DESTDIR/usr/bin",
+    "ln -sf /usr/lib/jvm/java-21-openjdk/bin/java $DESTDIR/usr/bin/java",
+    "ln -sf /usr/lib/jvm/java-21-openjdk/bin/javac $DESTDIR/usr/bin/javac",
+    "ln -sf /usr/lib/jvm/java-21-openjdk/bin/javadoc $DESTDIR/usr/bin/javadoc",
+    "ln -sf /usr/lib/jvm/java-21-openjdk/bin/javap $DESTDIR/usr/bin/javap",
+    "ln -sf /usr/lib/jvm/java-21-openjdk/bin/jar $DESTDIR/usr/bin/jar",
+    "ln -sf /usr/lib/jvm/java-21-openjdk/bin/jshell $DESTDIR/usr/bin/jshell",
+    "install -Dm644 LICENSE $DESTDIR/usr/share/licenses/jdk/LICENSE",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

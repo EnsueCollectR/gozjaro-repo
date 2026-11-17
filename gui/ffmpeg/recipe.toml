@@ -1,0 +1,45 @@
+[package]
+name = "ffmpeg"
+version = "7.1.1"
+release = 1
+desc = "Complete solution to record, convert and stream audio and video"
+license = "GPL-3.0-or-later"
+depends = ["alsa-lib", "libjpeg-turbo", "libwebp", "openssl", "zlib", "bzip2", "xz", "libdrm", "libva", "mesa"]
+build_depends = ["nasm", "yasm"]
+
+[source]
+urls = [
+    { url = "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz" , sha256 = "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD ffmpeg (build + package)",
+    "# source top dir \"ffmpeg-7.1.1\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--disable-static \\",
+    "--enable-shared \\",
+    "--enable-gpl \\",
+    "--enable-version3 \\",
+    "--enable-openssl \\",
+    "--enable-alsa \\",
+    "--enable-libdrm \\",
+    "--enable-vaapi \\",
+    "--disable-doc \\",
+    "--disable-debug",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

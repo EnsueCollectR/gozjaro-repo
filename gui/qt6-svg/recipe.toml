@@ -1,0 +1,37 @@
+[package]
+name = "qt6-svg"
+version = "6.8.2"
+release = 1
+desc = "Scalable Vector Graphics (SVG) rendering support (Qt6)"
+license = "GPL-3.0-or-later"
+depends = ["qt6-base"]
+build_depends = ["cmake", "ninja", "qt6-base"]
+
+[source]
+urls = [
+    { url = "https://download.qt.io/archive/qt/6.8/6.8.2/submodules/qtsvg-everywhere-src-6.8.2.tar.xz" , sha256 = "aa2579f21ca66d19cbcf31d87e9067e07932635d36869c8239d4decd0a9dc1fa"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD qt6-svg (build + package)",
+    "# source top dir \"qtsvg-everywhere-src-6.8.2\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DQT_BUILD_TESTS=OFF \\",
+    "-DQT_BUILD_EXAMPLES=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

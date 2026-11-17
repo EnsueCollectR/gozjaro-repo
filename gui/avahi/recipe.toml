@@ -1,0 +1,47 @@
+[package]
+name = "avahi"
+version = "0.8"
+release = 1
+desc = "Service Discovery for Linux using mDNS/DNS-SD"
+license = "LGPL-2.1-or-later"
+depends = ["dbus", "libdaemon", "glib2", "expat"]
+build_depends = ["gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://github.com/lathiat/avahi/releases/download/v0.8/avahi-0.8.tar.gz" , sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD avahi (build + package)",
+    "# source top dir \"avahi-0.8\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--disable-static \\",
+    "--disable-monodoc \\",
+    "--disable-python \\",
+    "--disable-qt4 \\",
+    "--disable-qt5 \\",
+    "--disable-gtk \\",
+    "--disable-gtk3 \\",
+    "--disable-gdbm \\",
+    "--disable-libevent \\",
+    "--with-distro=none",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,36 @@
+[package]
+name = "vala"
+version = "0.56.17"
+release = 1
+desc = "Compiler for the GObject type system"
+license = "LGPL-2.1-or-later"
+depends = ["glib2"]
+build_depends = ["glib2", "flex", "bison", "graphviz"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/vala/0.56/vala-0.56.17.tar.xz" , sha256 = "26100c4e4ef0049c619275f140d97cf565883d00c7543c82bcce5a426934ed6a"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD vala (build + package)",
+    "# source top dir \"vala-0.56.17\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--disable-valadoc",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

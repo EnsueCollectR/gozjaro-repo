@@ -1,0 +1,39 @@
+[package]
+name = "libadwaita"
+version = "1.6.3"
+release = 1
+desc = "Building blocks for modern GNOME applications"
+license = "LGPL-2.1-or-later"
+depends = ["gtk4", "glib2"]
+build_depends = ["meson", "ninja", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/libadwaita/1.6/libadwaita-1.6.3.tar.xz" , sha256 = "c88d4516edd1e0fc61be925f414efc340e149171756064473a082b6ae9a5dc00"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libadwaita (build + package)",
+    "# source top dir \"libadwaita-1.6.3\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dtests=false \\",
+    "-Dexamples=false \\",
+    "-Dgtk_doc=false \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

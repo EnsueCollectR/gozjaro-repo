@@ -1,0 +1,37 @@
+[package]
+name = "konsole"
+version = "24.12.3"
+release = 1
+desc = "Terminal emulator for KDE"
+license = "GPL-2.0-or-later"
+depends = ["qt6-base", "qt6-declarative", "qt6-svg", "kcoreaddons", "kiconthemes", "kwindowsystem", "kwidgetsaddons", "kconfigwidgets", "kglobalaccel", "kdbusaddons", "ki18n", "kservice"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/release-service/24.12.3/src/konsole-24.12.3.tar.xz" , sha256 = "fe7c25e0dbf93c2d2a36988f479cd3202d8c8c58656395ce13e248c591c10241"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD konsole (build + package)",
+    "# source top dir \"konsole-24.12.3\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DENABLE_PLUGINS=ON",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

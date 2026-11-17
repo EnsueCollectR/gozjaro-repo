@@ -1,0 +1,38 @@
+[package]
+name = "libx11"
+version = "1.8.12"
+release = 1
+desc = "X11 client-side library"
+license = "MIT"
+depends = ["libxcb"]
+build_depends = ["xorgproto", "libxcb", "xtrans"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libX11-1.8.12.tar.xz", sha256 = "fa026f9bb0124f4d6c808f9aef4057aad65e7b35d8ff43951cef0abe06bb9a9a" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libX11 (build + package)",
+    "# source top dir \"libX11-1.8.12\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--disable-static \\",
+    "--disable-xf86bigfont \\",
+    "--enable-ipv6",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

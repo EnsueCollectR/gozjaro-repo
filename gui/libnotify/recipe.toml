@@ -1,0 +1,37 @@
+[package]
+name = "libnotify"
+version = "0.8.3"
+release = 1
+desc = "Library for sending desktop notifications"
+license = "LGPL-2.1-or-later"
+depends = ["glib2", "gdk-pixbuf2"]
+build_depends = ["meson", "ninja", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/libnotify/0.8/libnotify-0.8.3.tar.xz" , sha256 = "ee8f3ef946156ad3406fdf45feedbdcd932dbd211ab4f16f75eba4f36fb2f6c0"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libnotify (build + package)",
+    "# source top dir \"libnotify-0.8.3\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocbook_docs=disabled \\",
+    "-Dman=false \\",
+    "-Dtests=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

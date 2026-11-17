@@ -1,0 +1,40 @@
+[package]
+name = "gnupg"
+version = "2.4.7"
+release = 1
+desc = "Complete and free OpenPGP implementation"
+license = "GPL-3.0-or-later"
+depends = ["libgpg-error", "libgcrypt", "libassuan", "libksba", "npth", "zlib", "bzip2", "sqlite"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.7.tar.bz2" , sha256 = "7b24706e4da7e0e3b06ca068231027401f238102c41c909631349dcc3b85eb46"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gnupg (build + package)",
+    "# source top dir \"gnupg-2.4.7\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--enable-symcryptrun \\",
+    "--disable-gpgtar \\",
+    "--with-zlib \\",
+    "--with-bzip2",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,40 @@
+[package]
+name = "dbus"
+version = "1.16.0"
+release = 1
+desc = "Freedesktop.org message bus system"
+license = "GPL-2.0-or-later"
+depends = ["expat", "libcap"]
+build_depends = ["cmake", "ninja"]
+
+[source]
+urls = [
+    { url = "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.0.tar.xz" , sha256 = "9f8ca5eb51cbe09951aec8624b86c292990ae2428b41b856e2bed17ec65c8849"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD dbus (build + package)",
+    "# source top dir \"dbus-1.16.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DCMAKE_INSTALL_SYSCONFDIR=/etc \\",
+    "-DCMAKE_INSTALL_LOCALSTATEDIR=/var \\",
+    "-DDBUS_BUILD_TESTS=OFF \\",
+    "-DDBUS_ENABLE_DOXYGEN_DOCS=OFF \\",
+    "-DDBUS_ENABLE_XML_DOCS=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

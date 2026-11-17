@@ -1,0 +1,36 @@
+[package]
+name = "ki18n"
+version = "6.10.0"
+release = 1
+desc = "KDE Frameworks 6 Internationalization library"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "qt6-declarative"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "python"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/frameworks/6.10/ki18n-6.10.0.tar.xz" , sha256 = "2f59f093f8ce340ab46c556b35c2ead2b96dfeb2ff0024c553ac8c53e9b8a11a"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD ki18n (build + package)",
+    "# source top dir \"ki18n-6.10.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

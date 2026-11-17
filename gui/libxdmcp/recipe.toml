@@ -1,0 +1,34 @@
+[package]
+name = "libxdmcp"
+version = "1.1.5"
+release = 1
+desc = "X11 Display Manager Control Protocol library"
+license = "MIT"
+depends = ["xorgproto"]
+build_depends = ["xorgproto"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libXdmcp-1.1.5.tar.xz", sha256 = "d8a5222828c3adab70adf69a5583f1d32eb5ece04304f7f8392b6a353aa2228c" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libXdmcp (build + package)",
+    "# source top dir \"libXdmcp-1.1.5\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

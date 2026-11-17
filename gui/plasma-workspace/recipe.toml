@@ -1,0 +1,40 @@
+[package]
+name = "plasma-workspace"
+version = "6.3.0"
+release = 1
+desc = "KDE Plasma Workspace"
+license = "GPL-2.0-or-later"
+depends = ["kwin", "libplasma", "qt6-base", "qt6-declarative", "qt6-wayland", "kservice", "kcoreaddons", "kiconthemes", "kglobalaccel", "kwindowsystem", "ki18n", "wayland", "pipewire"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "wayland-protocols", "qt6-tools", "qt6-svg"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/plasma/6.3.0/plasma-workspace-6.3.0.tar.xz" , sha256 = "14167db6b966b1567b4b8b8fb7bed18d952f2b4d9447b5228a3f5a1fbb38c439"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD plasma-workspace (build + package)",
+    "# source top dir \"plasma-workspace-6.3.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DCMAKE_INSTALL_LIBEXECDIR=lib \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DBUILD_RUNNER_ACTIVITIES=OFF \\",
+    "-DPLASMA_X11_DEFAULT_BACKEND=OFF \\",
+    "-DBUILD_RUNNER_WEBSEARCH=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

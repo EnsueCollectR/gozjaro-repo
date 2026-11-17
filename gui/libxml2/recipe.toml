@@ -1,0 +1,38 @@
+[package]
+name = "libxml2"
+version = "2.13.5"
+release = 1
+desc = "XML C parser and toolkit"
+license = "MIT"
+depends = ["xz", "zlib"]
+build_depends = ["python"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.5.tar.xz" , sha256 = "74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libxml2 (build + package)",
+    "# source top dir \"libxml2-2.13.5\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--disable-static \\",
+    "--with-history \\",
+    "--without-python",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

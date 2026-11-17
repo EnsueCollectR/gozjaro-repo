@@ -1,0 +1,39 @@
+[package]
+name = "alsa-utils"
+version = "1.2.13"
+release = 1
+desc = "Advanced Linux Sound Architecture utilities"
+license = "GPL-2.0-or-later"
+depends = ["alsa-lib", "ncurses"]
+build_depends = ["alsa-lib"]
+
+[source]
+urls = [
+    { url = "https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.13.tar.bz2" , sha256 = "1702a6b1cdf9ba3e996ecbc1ddcf9171e6808f5961d503d0f27e80ee162f1daa"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD alsa-utils (build + package)",
+    "# source top dir \"alsa-utils-1.2.13\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure \\",
+    "--prefix=/usr \\",
+    "--disable-alsaconf \\",
+    "--disable-bat \\",
+    "--disable-xmlto \\",
+    "--with-curses=ncurses",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

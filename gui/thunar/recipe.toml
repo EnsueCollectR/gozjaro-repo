@@ -1,0 +1,40 @@
+[package]
+name = "thunar"
+version = "4.20.0"
+release = 1
+desc = "Modern file manager for Xfce"
+license = "GPL-2.0-or-later"
+depends = ["libxfce4ui", "libxfce4util", "xfconf", "exo", "gdk-pixbuf2"]
+build_depends = ["meson", "ninja", "gtk3", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/thunar/4.20/thunar-4.20.0.tar.bz2" , sha256 = "27731a76f3aecf3752b1ca35afad89e264c52244f70083d933507dd4a17548b0"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD thunar (build + package)",
+    "# source top dir \"thunar-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dintrospection=enabled \\",
+    "-Dgtk-doc=false \\",
+    "-Dpcre2=enabled \\",
+    "-Dexif=disabled \\",
+    "-Dnotifications=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

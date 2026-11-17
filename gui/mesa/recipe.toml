@@ -1,0 +1,57 @@
+[package]
+name = "mesa"
+version = "24.3.4"
+release = 1
+desc = "Open-source implementation of the OpenGL specification"
+license = "MIT"
+depends = ["libdrm", "libxkbcommon", "wayland", "zlib", "expat"]
+build_depends = ["meson", "ninja", "python", "libdrm", "wayland", "wayland-protocols", "libxkbcommon", "llvm", "clang", "python-mako"]
+
+[source]
+urls = [
+    { url = "https://mesa3d.org/archive/mesa-24.3.4.tar.xz" , sha256 = "e641ae27191d387599219694560d221b7feaa91c900bcec46bf444218ed66025"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD mesa (build + package)",
+    "# source top dir \"mesa-24.3.4\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dgallium-drivers=radeonsi,nouveau,virgl,softpipe,llvmpipe,svga,r600,iris,crocus,i915 \\",
+    "-Dvulkan-drivers=amd,intel,virtio \\",
+    "-Dplatforms=wayland \\",
+    "-Degl-native-platform=wayland \\",
+    "-Dosmesa=true \\",
+    "-Dgbm=enabled \\",
+    "-Degl=enabled \\",
+    "-Dopengl=true \\",
+    "-Dgles1=enabled \\",
+    "-Dgles2=enabled \\",
+    "-Dglx=disabled \\",
+    "-Dllvm=enabled \\",
+    "-Dshared-llvm=enabled \\",
+    "-Dlmsensors=disabled \\",
+    "-Dxlib-lease=disabled \\",
+    "-Dvalgrind=disabled \\",
+    "-Dlibunwind=disabled \\",
+    "-Dzstd=enabled \\",
+    "-Dmicrosoft-clc=disabled \\",
+    "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc \\",
+    "-Dintel-clc=auto",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".docs/license.rst\" \"$DESTDIR/usr/share/licenses/mesa/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

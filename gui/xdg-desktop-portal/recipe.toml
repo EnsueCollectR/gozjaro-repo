@@ -1,0 +1,36 @@
+[package]
+name = "xdg-desktop-portal"
+version = "1.18.4"
+release = 1
+desc = "Desktop integration portal for Flatpak and other sandboxed apps"
+license = "LGPL-2.1-or-later"
+depends = ["glib2", "dbus", "pipewire", "wayland"]
+build_depends = ["meson", "ninja", "wayland-protocols", "python-docutils"]
+
+[source]
+urls = [
+    { url = "https://github.com/flatpak/xdg-desktop-portal/releases/download/1.18.4/xdg-desktop-portal-1.18.4.tar.xz" , sha256 = "b858aa1e74e80c862790dbb912906e6eab8b1e4db9339cd759473af62b461e65"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xdg-desktop-portal (build + package)",
+    "# source top dir \"xdg-desktop-portal-1.18.4\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocbook-docs=disabled \\",
+    "-Dbuild-man-pages=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,22 @@
+[package]
+name = "libev"
+version = "4.33"
+release = 1
+desc = "A full-featured and high-performance event loop"
+license = "BSD-2-Clause"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://dist.schmorp.de/libev/libev-4.33.tar.gz", sha256 = "507eb7b8d1015fbec5b935f34ebed15bf346bed04a11ab82b8eee848c4205aea" },
+]
+patches = []
+
+[build]
+steps = [
+    "./configure --prefix=/usr",
+    "make -j$(nproc)",
+    "make DESTDIR=$DESTDIR install",
+    "rm -f $DESTDIR/usr/include/event.h",
+]

@@ -1,0 +1,37 @@
+[package]
+name = "libxfce4util"
+version = "4.20.0"
+release = 1
+desc = "Basic utility library for Xfce4"
+license = "LGPL-2.1-or-later"
+depends = ["glib2"]
+build_depends = ["meson", "ninja", "glib2", "gobject-introspection", "vala", "gtk-doc"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/libxfce4util/4.20/libxfce4util-4.20.0.tar.bz2" , sha256 = "21493f9c9995a282823db93839f6b9f06ae31edb094191ba9acf04d932a2b592"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libxfce4util (build + package)",
+    "# source top dir \"libxfce4util-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=false \\",
+    "-Dgtk-doc=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

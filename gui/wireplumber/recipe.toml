@@ -1,0 +1,40 @@
+[package]
+name = "wireplumber"
+version = "0.5.7"
+release = 1
+desc = "Session / policy manager implementation for PipeWire"
+license = "MIT"
+depends = ["pipewire", "glib2"]
+build_depends = ["meson", "ninja", "glib2", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://github.com/PipeWire/wireplumber/archive/refs/tags/0.5.7.tar.gz", sha256 = "8cd43a582f68368ee5a915e97bf9dadc44d2dfe8c7bb4f96bb7b40ea2ed7848f" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD wireplumber (build + package)",
+    "# source top dir \"wireplumber-0.5.7\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Ddoc=disabled \\",
+    "-Dtests=false \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".LICENSE\" \"$DESTDIR/usr/share/licenses/wireplumber/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

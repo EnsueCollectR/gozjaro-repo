@@ -1,0 +1,34 @@
+[package]
+name = "xtrans"
+version = "1.5.1"
+release = 1
+desc = "X transport library"
+license = "MIT"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/xtrans-1.5.1.tar.xz", sha256 = "dea80fbd8c3c941495b4b1d2785cb652815d016849a0d2ef90d1140de916993e" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xtrans (build + package)",
+    "# source top dir \"xtrans-1.5.1\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --sysconfdir=/etc",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

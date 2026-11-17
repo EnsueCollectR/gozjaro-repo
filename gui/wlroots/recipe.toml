@@ -1,0 +1,38 @@
+[package]
+name = "wlroots"
+version = "0.18.2"
+release = 1
+desc = "Modular Wayland compositor library"
+license = "MIT"
+depends = ["wayland", "libdrm", "libinput", "pixman", "mesa", "libxkbcommon"]
+build_depends = ["meson", "ninja", "wayland-protocols", "mesa", "libinput", "libdrm", "pixman"]
+
+[source]
+urls = [
+    { url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/0.18.2/downloads/wlroots-0.18.2.tar.gz", sha256 = "cf776c169169f279808d9eabc6583f484338dcd454c966a285ff178c88c105d4" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD wlroots (build + package)",
+    "# source top dir \"wlroots-0.18.2\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Drenderers=gles2 \\",
+    "-Dexamples=false \\",
+    "-Dxwayland=disabled \\",
+    "-Dbackends=drm,libinput",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

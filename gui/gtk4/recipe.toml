@@ -1,0 +1,51 @@
+[package]
+name = "gtk4"
+version = "4.16.12"
+release = 1
+desc = "GObject-based multi-platform GUI toolkit (v4)"
+license = "LGPL-2.1-or-later"
+depends = ["gdk-pixbuf2", "cairo", "pango", "libxrandr", "libxi", "libxcursor", "glib2", "wayland", "libxkbcommon", "mesa"]
+build_depends = ["meson", "ninja", "gobject-introspection", "wayland-protocols", "shaderc"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gtk/4.16/gtk-4.16.12.tar.xz" , sha256 = "ef31bdbd6f082c4401634a20c850b0050c9bf252ef1e079764ee95a2a0c4c95a"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gtk4 (build + package)",
+    "# source top dir \"gtk-4.16.12\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Ddemos=false \\",
+    "-Dbuild-examples=false \\",
+    "-Dbuild-tests=false \\",
+    "-Dbuild-testsuite=false \\",
+    "-Dintrospection=enabled \\",
+    "-Dwayland-backend=true \\",
+    "-Dx11-backend=true \\",
+    "-Dbroadway-backend=false \\",
+    "-Dmedia-gstreamer=disabled \\",
+    "-Dprint-cups=disabled \\",
+    "-Dvulkan=disabled \\",
+    "-Dcolord=disabled \\",
+    "-Dcloudproviders=disabled \\",
+    "-Dtracker=disabled \\",
+    "-Dman-pages=disabled \\",
+    "-Dgtk_doc=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

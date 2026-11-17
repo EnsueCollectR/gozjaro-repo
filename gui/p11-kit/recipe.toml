@@ -1,0 +1,37 @@
+[package]
+name = "p11-kit"
+version = "0.25.5"
+release = 1
+desc = "Loads and enumerates PKCS#11 modules"
+license = "BSD-3-Clause"
+depends = ["libffi"]
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://github.com/p11-glue/p11-kit/releases/download/0.25.5/p11-kit-0.25.5.tar.xz" , sha256 = "04d0a86450cdb1be018f26af6699857171a188ac6d5b8c90786a60854e1198e5"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD p11-kit (build + package)",
+    "# source top dir \"p11-kit-0.25.5\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dtrust_paths=/etc/ssl/certs/ca-certificates.crt \\",
+    "-Dgtk_doc=false \\",
+    "-Dman=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

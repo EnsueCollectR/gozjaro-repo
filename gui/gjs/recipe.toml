@@ -1,0 +1,41 @@
+[package]
+name = "gjs"
+version = "1.82.1"
+release = 1
+desc = "Javascript bindings for GNOME"
+license = "MIT"
+depends = ["glib2", "cairo", "gobject-introspection"]
+build_depends = ["meson", "ninja", "glib2", "cairo", "gobject-introspection", "dbus"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gjs/1.82/gjs-1.82.1.tar.xz" , sha256 = "fb39aa5636576de0e5a1171f56a1a5825e2bd1a69972fb120ba78bd109b5693c"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gjs (build + package)",
+    "# source top dir \"gjs-1.82.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dprofiler=disabled \\",
+    "-Ddtrace=false \\",
+    "-Dsystemtap=false \\",
+    "-Dinstalled_tests=false \\",
+    "-Dskip_dbus_tests=true \\",
+    "-Dreadline=disabled \\",
+    "-Dverbose_logs=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

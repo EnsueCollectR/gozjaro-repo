@@ -1,0 +1,44 @@
+[package]
+name = "cairo"
+version = "1.18.2"
+release = 1
+desc = "2D graphics library with support for multiple output devices"
+license = "LGPL-2.1-or-later OR MPL-1.1"
+depends = ["freetype2", "fontconfig", "libpng", "pixman", "glib2"]
+build_depends = ["meson", "ninja", "freetype2", "fontconfig", "libpng", "pixman", "glib2"]
+
+[source]
+urls = [
+    { url = "https://www.cairographics.org/releases/cairo-1.18.2.tar.xz" , sha256 = "a62b9bb42425e844cc3d6ddde043ff39dbabedd1542eba57a2eb79f85889d45a"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD cairo (build + package)",
+    "# source top dir \"cairo-1.18.2\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dxlib=disabled \\",
+    "-Dxcb=disabled \\",
+    "-Dquartz=disabled \\",
+    "-Dtests=disabled \\",
+    "-Dspectre=disabled \\",
+    "-Dsymbol-lookup=disabled \\",
+    "-Dfreetype=enabled \\",
+    "-Dfontconfig=enabled \\",
+    "-Dpng=enabled \\",
+    "-Dglib=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

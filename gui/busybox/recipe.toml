@@ -1,0 +1,38 @@
+[package]
+name = "busybox"
+version = "1.37.0"
+release = 1
+desc = "Size-optimized toolbox of Unix utilities"
+license = "GPL-2.0-only"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://busybox.net/downloads/busybox-1.37.0.tar.bz2" , sha256 = "3311dff32e746499f4df0d5df04d7eb396382d7e108bb9250e7b519b837043a4"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD busybox (build + package)",
+    "# source top dir \"busybox-1.37.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "make defconfig",
+    "sed -i 's/CONFIG_FEATURE_SYSTEMD=y/# CONFIG_FEATURE_SYSTEMD is not set/' .config || true",
+    "sed -i 's/CONFIG_TC=y/# CONFIG_TC is not set/' .config || true",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "install -Dm755 busybox \"$DESTDIR/usr/bin/busybox\"",
+    "make CONFIG_PREFIX=\"$DESTDIR\" install",
+    "rm -f \"$DESTDIR/bin/busybox\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

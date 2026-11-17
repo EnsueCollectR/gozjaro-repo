@@ -1,0 +1,36 @@
+[package]
+name = "exo"
+version = "4.20.0"
+release = 1
+desc = "Application library for Xfce"
+license = "GPL-2.0-or-later"
+depends = ["gtk3", "libxfce4util", "glib2"]
+build_depends = ["meson", "ninja", "gtk3", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/exo/4.20/exo-4.20.0.tar.bz2" , sha256 = "4277f799245f1efde01cd917fd538ba6b12cf91c9f8a73fe2035fd5456ec078d"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD exo (build + package)",
+    "# source top dir \"exo-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dgtk-doc=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,39 @@
+[package]
+name = "polkit"
+version = "124"
+release = 1
+desc = "Application development toolkit for controlling system-wide privileges"
+license = "GPL-2.0-or-later"
+depends = ["glib2", "dbus", "libxslt", "expat"]
+build_depends = ["meson", "ninja", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://gitlab.freedesktop.org/polkit/polkit/-/archive/124/polkit-124.tar.gz", sha256 = "72457d96a0538fd03a3ca96a6bf9b7faf82184d4d67c793eb759168e4fd49e20" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD polkit (build + package)",
+    "",
+    "meson setup polkit build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dauthentication_agent_helper_required=false \\",
+    "-Dman=false \\",
+    "-Dsession_tracking=logind \\",
+    "-Djs_engine=mozjs \\",
+    "-Dtests=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

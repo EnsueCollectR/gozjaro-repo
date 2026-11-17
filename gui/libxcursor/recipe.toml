@@ -1,0 +1,34 @@
+[package]
+name = "libxcursor"
+version = "1.2.3"
+release = 1
+desc = "X cursor management library"
+license = "MIT"
+depends = ["libxrender", "libxfixes"]
+build_depends = ["xorgproto", "libxrender", "libxfixes"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libXcursor-1.2.3.tar.xz", sha256 = "fde9402dd4cfe79da71e2d96bb980afc5e6ff4f8a7d74c159e1966afb2b2c2c0" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libXcursor (build + package)",
+    "# source top dir \"libXcursor-1.2.3\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

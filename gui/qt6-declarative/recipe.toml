@@ -1,0 +1,37 @@
+[package]
+name = "qt6-declarative"
+version = "6.8.2"
+release = 1
+desc = "Qt6 QML and Quick (Qt6)"
+license = "GPL-3.0-or-later"
+depends = ["qt6-base"]
+build_depends = ["cmake", "ninja", "qt6-base"]
+
+[source]
+urls = [
+    { url = "https://download.qt.io/archive/qt/6.8/6.8.2/submodules/qtdeclarative-everywhere-src-6.8.2.tar.xz" , sha256 = "144d876adc8bb55909735143e678d1e24eadcd0a380a0186792d88b731346d56"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD qt6-declarative (build + package)",
+    "# source top dir \"qtdeclarative-everywhere-src-6.8.2\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DQT_BUILD_TESTS=OFF \\",
+    "-DQT_BUILD_EXAMPLES=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

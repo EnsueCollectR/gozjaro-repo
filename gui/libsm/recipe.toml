@@ -1,0 +1,34 @@
+[package]
+name = "libsm"
+version = "1.2.6"
+release = 1
+desc = "X11 Session Management library"
+license = "MIT"
+depends = ["libice", "xorgproto"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libSM-1.2.6.tar.xz", sha256 = "be7c0abdb15cbfd29ac62573c1c82e877f9d4047ad15321e7ea97d1e43d835be" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libSM (build + package)",
+    "# source top dir \"libSM-1.2.6\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static --without-libuuid",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

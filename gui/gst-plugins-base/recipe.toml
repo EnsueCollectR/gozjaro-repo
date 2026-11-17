@@ -1,0 +1,41 @@
+[package]
+name = "gst-plugins-base"
+version = "1.24.12"
+release = 1
+desc = "GStreamer Multimedia Framework Base Plugins"
+license = "LGPL-2.1-or-later"
+depends = ["gstreamer", "alsa-lib", "orc", "libpng", "libjpeg-turbo", "pango", "cairo", "wayland", "libxcomposite", "libxdamage"]
+build_depends = ["meson", "ninja", "gobject-introspection", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.24.12.tar.xz" , sha256 = "f6efbaa8fea8d00bc380bccca76a530527b1f083e8523eafb3e9b1e18bc653d3"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gst-plugins-base (build + package)",
+    "# source top dir \"gst-plugins-base-1.24.12\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dgtk_doc=disabled \\",
+    "-Dintrospection=enabled \\",
+    "-Dtests=disabled \\",
+    "-Dexamples=disabled \\",
+    "-Dgl=enabled \\",
+    "-Dgl-graphene=disabled \\",
+    "-Dorc=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

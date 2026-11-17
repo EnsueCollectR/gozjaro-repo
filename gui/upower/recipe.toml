@@ -1,0 +1,40 @@
+[package]
+name = "upower"
+version = "1.90.6"
+release = 1
+desc = "Abstraction for enumerating power devices, listening to device events and querying history and statistics"
+license = "GPL-2.0-or-later"
+depends = ["dbus", "glib2", "polkit", "libusb"]
+build_depends = ["meson", "ninja", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.6/upower-v1.90.6.tar.gz", sha256 = "7e367c2619ca0f26d5bfc085b46bad9657b2774cc3eaffbf310b607df6e21377" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD upower (build + package)",
+    "# source top dir \"upower-v1.90.6\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dgtk-doc=false \\",
+    "-Dman=false \\",
+    "-Dintrospection=enabled \\",
+    "-Didevice=disabled \\",
+    "-Dios=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

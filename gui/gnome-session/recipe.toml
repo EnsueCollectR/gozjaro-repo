@@ -1,0 +1,38 @@
+[package]
+name = "gnome-session"
+version = "46.0"
+release = 1
+desc = "The GNOME Session Handler"
+license = "GPL-2.0-or-later"
+depends = ["gnome-shell", "dbus", "glib2"]
+build_depends = ["meson", "ninja", "glib2"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/gnome-session/46/gnome-session-46.0.tar.xz" , sha256 = "c6e1624af6090bc4e1a191fe2268abfa7a8de07831ca7a57f217e679bf7b9a54"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD gnome-session (build + package)",
+    "# source top dir \"gnome-session-46.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dsystemd=true \\",
+    "-Delogind=false \\",
+    "-Ddocbook=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

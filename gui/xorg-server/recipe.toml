@@ -1,0 +1,49 @@
+[package]
+name = "xorg-server"
+version = "21.1.14"
+release = 1
+desc = "Xorg X server"
+license = "MIT"
+depends = ["libx11", "libxext", "libxfixes", "libxi", "libxrender", "libxrandr", "pixman", "mesa", "libdrm", "libinput"]
+build_depends = ["meson", "ninja", "xorgproto", "libxcb", "mesa", "libdrm", "libxi", "libxrender", "libxrandr", "pixman", "libinput"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/xserver/xorg-server-21.1.14.tar.xz", sha256 = "8f2102cebdc4747d1656c1099ef610f5063c7422c24a177e300de569b354ee35" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xorg-server (build + package)",
+    "# source top dir \"xorg-server-21.1.14\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--buildtype=release \\",
+    "-Dipv6=true \\",
+    "-Dxvfb=true \\",
+    "-Dxnest=false \\",
+    "-Dxcsecurity=true \\",
+    "-Dxorg=true \\",
+    "-Dxephyr=false \\",
+    "-Dglamor=true \\",
+    "-Dudev=true \\",
+    "-Dsuid_wrapper=true \\",
+    "-Dxkb_dir=/usr/share/X11/xkb \\",
+    "-Dxkb_output_dir=/var/lib/xkb",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".COPYING\" \"$DESTDIR/usr/share/licenses/xorg-server/COPYING\"",
+    "install -dm755 \"$DESTDIR/var/lib/xkb\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

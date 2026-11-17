@@ -1,0 +1,21 @@
+[package]
+name = "brotli"
+version = "1.2.1"
+release = 1
+desc = "Generic-purpose lossless compression algorithm"
+license = "MIT"
+depends = []
+build_depends = ["cmake"]
+
+[source]
+urls = [
+    { url = "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz", sha256 = "98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f" },
+]
+patches = []
+
+[build]
+steps = [
+    "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON",
+    "cmake --build build -j$(nproc)",
+    "DESTDIR=$DESTDIR cmake --install build",
+]

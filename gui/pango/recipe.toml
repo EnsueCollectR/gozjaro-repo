@@ -1,0 +1,40 @@
+[package]
+name = "pango"
+version = "1.55.0"
+release = 1
+desc = "A library for layout and rendering of text"
+license = "LGPL-2.1-or-later"
+depends = ["cairo", "harfbuzz", "fontconfig", "freetype2", "glib2", "fribidi"]
+build_depends = ["meson", "ninja", "gobject-introspection", "harfbuzz", "cairo", "fribidi"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/pango/1.55/pango-1.55.0.tar.xz" , sha256 = "a2c17a8dc459a7267b8b167bb149d23ff473b6ff9d5972bee047807ee2220ccf"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD pango (build + package)",
+    "# source top dir \"pango-1.55.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dgtk_doc=false \\",
+    "-Dintrospection=disabled \\",
+    "-Dfontconfig=enabled \\",
+    "-Dfreetype=enabled \\",
+    "-Dxft=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".COPYING\" \"$DESTDIR/usr/share/licenses/pango/COPYING\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

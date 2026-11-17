@@ -1,0 +1,40 @@
+[package]
+name = "kwin"
+version = "6.3.0"
+release = 1
+desc = "An easy to use, but flexible, composited window manager"
+license = "GPL-2.0-or-later"
+depends = ["qt6-base", "qt6-wayland", "qt6-declarative", "wayland", "libdrm", "mesa", "libxkbcommon", "kwindowsystem", "kcoreaddons", "kconfigwidgets", "kpackage", "kservice", "ki18n", "kglobalaccel", "libinput"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "wayland-protocols", "qt6-tools", "qt6-svg"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/plasma/6.3.0/kwin-6.3.0.tar.xz" , sha256 = "1ad978fc52b21bfdd218843554a015b24689e0c04904d1cb00e2e4afca4f4af4"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD kwin (build + package)",
+    "# source top dir \"kwin-6.3.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DCMAKE_INSTALL_LIBEXECDIR=lib \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DQT_MAJOR_VERSION=6 \\",
+    "-DKWIN_BUILD_X11=OFF \\",
+    "-DKWIN_BUILD_ACTIVITIES=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

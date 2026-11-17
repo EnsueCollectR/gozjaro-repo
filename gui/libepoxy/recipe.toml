@@ -1,0 +1,38 @@
+[package]
+name = "libepoxy"
+version = "1.5.10"
+release = 1
+desc = "Library handling OpenGL function pointer management"
+license = "MIT"
+depends = ["mesa"]
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" , sha256 = "a7ced37f4102b745ac86d6a70a9da399cc139ff168ba6b8002b4d8d43c900c15"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libepoxy (build + package)",
+    "# source top dir \"1.5.10\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \"libepoxy-1.5.10\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Ddocs=false \\",
+    "-Dtests=false \\",
+    "-Dx11=true \\",
+    "-Degl=yes",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

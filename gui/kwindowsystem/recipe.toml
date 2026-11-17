@@ -1,0 +1,38 @@
+[package]
+name = "kwindowsystem"
+version = "6.10.0"
+release = 1
+desc = "Access to the windowing system"
+license = "LGPL-2.1-or-later"
+depends = ["qt6-base", "qt6-wayland", "wayland"]
+build_depends = ["cmake", "ninja", "extra-cmake-modules", "wayland-protocols", "qt6-tools"]
+
+[source]
+urls = [
+    { url = "https://download.kde.org/stable/frameworks/6.10/kwindowsystem-6.10.0.tar.xz" , sha256 = "046b7aa2247811323e48b629884b824a6ffec475df2316256e7ff0b9df677944"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD kwindowsystem (build + package)",
+    "# source top dir \"kwindowsystem-6.10.0\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DBUILD_TESTING=OFF \\",
+    "-DKWINDOWSYSTEM_X11=OFF \\",
+    "-DKWINDOWSYSTEM_WAYLAND=ON",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,34 @@
+[package]
+name = "libusb"
+version = "1.0.28"
+release = 1
+desc = "Library that provides generic access to USB devices"
+license = "LGPL-2.1-or-later"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/libusb/libusb/releases/download/v1.0.28/libusb-1.0.28.tar.bz2" , sha256 = "966bb0d231f94a474eaae2e67da5ec844d3527a1f386456394ff432580634b29"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libusb (build + package)",
+    "# source top dir \"libusb-1.0.28\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

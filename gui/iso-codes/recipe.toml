@@ -1,0 +1,30 @@
+[package]
+name = "iso-codes"
+version = "4.20.1"
+release = 1
+desc = "Lists of the country, language, and currency names"
+license = "LGPL-2.1-only"
+depends = []
+build_depends = ["git", "meson", "python"]
+
+[source]
+git = "git+https://salsa.debian.org/iso-codes-team/iso-codes#v4.20.1"
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD iso-codes (build + package)",
+    "",
+    "meson build iso-codes \\",
+    "--prefix=/usr",
+    "meson compile -C build",
+    "",
+    "",
+    "meson install -C build --destdir=\"$DESTDIR\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

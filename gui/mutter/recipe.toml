@@ -1,0 +1,45 @@
+[package]
+name = "mutter"
+version = "47.3"
+release = 1
+desc = "A window manager and Wayland compositor for GNOME"
+license = "GPL-2.0-or-later"
+depends = ["gnome-desktop", "glib2", "cairo", "pango", "libxkbcommon", "wayland", "libdrm", "mesa", "libinput"]
+build_depends = ["meson", "ninja", "gobject-introspection", "wayland-protocols", "gnome-settings-daemon"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/mutter/47/mutter-47.3.tar.xz" , sha256 = "76421af6f90509cfdf1ab851d5ee58271e27e94aa8f7db521d5aa06daea6c560"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD mutter (build + package)",
+    "# source top dir \"mutter-47.3\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--buildtype=release \\",
+    "-Ddocs=false \\",
+    "-Dtests=disabled \\",
+    "-Dprofiler=false \\",
+    "-Dintrospection=true \\",
+    "-Dxwayland=false \\",
+    "-Dremote_desktop=false \\",
+    "-Dnative_backend=true \\",
+    "-Dudev=true \\",
+    "-Dglx=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,51 @@
+[package]
+name = "pipewire"
+version = "1.2.7"
+release = 1
+desc = "Low-latency audio/video router and processor"
+license = "MIT"
+depends = ["alsa-lib", "dbus"]
+build_depends = ["meson", "ninja", "dbus"]
+
+[source]
+urls = [
+    { url = "https://github.com/PipeWire/pipewire/archive/refs/tags/1.2.7.tar.gz", sha256 = "e75568ed18bcbe75e9779af57cb9cc256fd7ebfaadc12bb347a0717055d1d3a9" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD pipewire (build + package)",
+    "# source top dir \"pipewire-1.2.7\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--localstatedir=/var \\",
+    "--buildtype=release \\",
+    "-Dsession-managers=[] \\",
+    "-Dgstreamer=disabled \\",
+    "-Dman=disabled \\",
+    "-Dtests=disabled \\",
+    "-Dexamples=disabled \\",
+    "-Dvulkan=disabled \\",
+    "-Dlibcamera=disabled \\",
+    "-Dffmpeg=disabled \\",
+    "-Djack=disabled \\",
+    "-Dbluez5=disabled \\",
+    "-Dpw-cat=disabled \\",
+    "-Dudev=enabled \\",
+    "-Dalsa=enabled \\",
+    "-Dspa-plugins=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+    "install -Dm644 \".LICENSE\" \"$DESTDIR/usr/share/licenses/pipewire/LICENSE\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

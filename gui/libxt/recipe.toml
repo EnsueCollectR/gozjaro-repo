@@ -1,0 +1,34 @@
+[package]
+name = "libxt"
+version = "1.3.1"
+release = 1
+desc = "X11 toolkit intrinsics library"
+license = "MIT"
+depends = ["libx11", "libice", "libsm", "xorgproto"]
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/lib/libXt-1.3.1.tar.xz", sha256 = "e0a774b33324f4d4c05b199ea45050f87206586d81655f8bef4dba434d931288" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libXt (build + package)",
+    "# source top dir \"libXt-1.3.1\" is stripped by the builder — paths below are flat",
+    "",
+    "cd \".\"",
+    "./configure --prefix=/usr --disable-static",
+    "make",
+    "",
+    "",
+    "cd \".\"",
+    "make DESTDIR=\"$DESTDIR\" install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

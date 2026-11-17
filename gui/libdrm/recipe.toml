@@ -1,0 +1,38 @@
+[package]
+name = "libdrm"
+version = "2.4.124"
+release = 1
+desc = "Userspace interface to kernel DRM services"
+license = "MIT"
+depends = []
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://dri.freedesktop.org/libdrm/libdrm-2.4.124.tar.xz" , sha256 = "ac36293f61ca4aafaf4b16a2a7afff312aa4f5c37c9fbd797de9e3c0863ca379"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD libdrm (build + package)",
+    "# source top dir \"libdrm-2.4.124\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dudev=true \\",
+    "-Dtests=false \\",
+    "-Dinstall-test-programs=false \\",
+    "-Dman-pages=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

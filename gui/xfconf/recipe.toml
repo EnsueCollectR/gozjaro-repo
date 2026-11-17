@@ -1,0 +1,38 @@
+[package]
+name = "xfconf"
+version = "4.20.0"
+release = 1
+desc = "Simple client-server configuration storage and query system for Xfce"
+license = "LGPL-2.1-or-later"
+depends = ["glib2", "dbus", "libxfce4util"]
+build_depends = ["meson", "ninja", "glib2", "gobject-introspection", "vala"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/xfconf/4.20/xfconf-4.20.0.tar.bz2" , sha256 = "8bc43c60f1716b13cf35fc899e2a36ea9c6cdc3478a8f051220eef0f53567efd"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xfconf (build + package)",
+    "# source top dir \"xfconf-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dintrospection=enabled \\",
+    "-Dvapi=false \\",
+    "-Dgtk-doc=false",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

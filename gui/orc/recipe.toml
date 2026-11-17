@@ -1,0 +1,38 @@
+[package]
+name = "orc"
+version = "0.4.40"
+release = 1
+desc = "Optimised Inner Loop Runtime Compiler"
+license = "BSD-2-Clause"
+depends = []
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://gstreamer.freedesktop.org/src/orc/orc-0.4.40.tar.xz" , sha256 = "3fc2bee78dfb7c41fd9605061fc69138db7df007eae2f669a1f56e8bacef74ab"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD orc (build + package)",
+    "# source top dir \"orc-0.4.40\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dbenchmarks=disabled \\",
+    "-Dexamples=disabled \\",
+    "-Dgtk_doc=disabled \\",
+    "-Dtests=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

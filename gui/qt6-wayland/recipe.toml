@@ -1,0 +1,37 @@
+[package]
+name = "qt6-wayland"
+version = "6.8.2"
+release = 1
+desc = "Qt6 Wayland platform plugin"
+license = "GPL-3.0-or-later"
+depends = ["qt6-base", "wayland", "libxkbcommon"]
+build_depends = ["cmake", "ninja", "qt6-base", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://download.qt.io/archive/qt/6.8/6.8.2/submodules/qtwayland-everywhere-src-6.8.2.tar.xz" , sha256 = "5e46157908295f2bf924462d8c0855b0508ba338ced9e810891fefa295dc9647"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD qt6-wayland (build + package)",
+    "# source top dir \"qtwayland-everywhere-src-6.8.2\" is stripped by the builder — paths below are flat",
+    "",
+    "cmake -B build -S \".\" \\",
+    "-GNinja \\",
+    "-DCMAKE_BUILD_TYPE=Release \\",
+    "-DCMAKE_INSTALL_PREFIX=/usr \\",
+    "-DQT_BUILD_TESTS=OFF \\",
+    "-DQT_BUILD_EXAMPLES=OFF",
+    "cmake --build build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" cmake --install build",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

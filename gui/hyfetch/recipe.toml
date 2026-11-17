@@ -1,0 +1,27 @@
+[package]
+name = "hyfetch"
+version = "2.1.1"
+release = 1
+desc = "Neofetch with extra hardware detection (Rust)"
+license = "MIT"
+depends = []
+build_depends = []
+
+[source]
+urls = [
+    { url = "https://github.com/hykilpikonna/hyfetch/archive/refs/tags/2.1.1.tar.gz", sha256 = "d83708caafa560531ee9dea002aa58123272a0209b4e6b296bae34c87665004a" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# cargo (host 7D12 rustc); pure-rust dep tree, static binary",
+    "cargo build --release --workspace 2>&1 | tail -2",
+    "install -Dm755 target/release/hyfetch \"$DESTDIR/usr/bin/hyfetch\"",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

@@ -1,0 +1,35 @@
+[package]
+name = "xorgproto"
+version = "2024.1"
+release = 1
+desc = "Combined X.Org X11 Protocol headers"
+license = "MIT"
+depends = []
+build_depends = ["meson", "ninja"]
+
+[source]
+urls = [
+    { url = "https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2024.1.tar.xz", sha256 = "372225fd40815b8423547f5d890c5debc72e88b91088fbfb13158c20495ccb59" },
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xorgproto (build + package)",
+    "# source top dir \"xorgproto-2024.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release \\",
+    "-Dlegacy=true",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

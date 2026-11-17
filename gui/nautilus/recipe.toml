@@ -1,0 +1,42 @@
+[package]
+name = "nautilus"
+version = "47.1"
+release = 1
+desc = "Default file manager for GNOME"
+license = "GPL-3.0-or-later"
+depends = ["glib2", "gtk4", "libadwaita", "gdk-pixbuf2", "gnome-desktop"]
+build_depends = ["meson", "ninja", "gobject-introspection", "tracker3", "libportal"]
+
+[source]
+urls = [
+    { url = "https://download.gnome.org/sources/nautilus/47/nautilus-47.1.tar.xz" , sha256 = "15450ebc7aa61ed2fae63130af9ebbbae14ce706a547f594c66bb8cca724d74c"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD nautilus (build + package)",
+    "# source top dir \"nautilus-47.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Ddocs=false \\",
+    "-Dtests=headless \\",
+    "-Dpackagekit=false \\",
+    "-Dintrospection=false \\",
+    "-Dselinux=false \\",
+    "-Dcloudproviders=disabled \\",
+    "-Dtracker=disabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

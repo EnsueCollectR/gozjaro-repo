@@ -1,0 +1,39 @@
+[package]
+name = "xfce4-settings"
+version = "4.20.0"
+release = 1
+desc = "Settings manager for Xfce"
+license = "GPL-2.0-or-later"
+depends = ["libxfce4ui", "libxfce4util", "xfconf", "libxi", "libxrandr", "libxcursor"]
+build_depends = ["meson", "ninja", "gtk3", "gobject-introspection"]
+
+[source]
+urls = [
+    { url = "https://archive.xfce.org/src/xfce/xfce4-settings/4.20/xfce4-settings-4.20.0.tar.bz2" , sha256 = "23548da3429a296501fbfdbc98a861ee241b9fdd47e8d5de1781f57c6bbce5a9"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD xfce4-settings (build + package)",
+    "# source top dir \"xfce4-settings-4.20.0\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--sysconfdir=/etc \\",
+    "--buildtype=release \\",
+    "-Dlibnotify=false \\",
+    "-Dcanberra=false \\",
+    "-Dcolord=disabled \\",
+    "-Dfontconfig=enabled",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []

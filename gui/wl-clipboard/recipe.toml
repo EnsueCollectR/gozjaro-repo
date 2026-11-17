@@ -1,0 +1,34 @@
+[package]
+name = "wl-clipboard"
+version = "2.2.1"
+release = 1
+desc = "Command-line copy/paste utilities for Wayland"
+license = "GPL-3.0-or-later"
+depends = ["wayland"]
+build_depends = ["meson", "ninja", "wayland-protocols"]
+
+[source]
+urls = [
+    { url = "https://github.com/bugaevc/wl-clipboard/archive/v2.2.1/wl-clipboard-2.2.1.tar.gz" , sha256 = "6eb8081207fb5581d1d82c4bcd9587205a31a3d47bea3ebeb7f41aa1143783eb"},
+]
+patches = []
+
+[build]
+system = "raw"
+steps = [
+    "# converted from gozjaro-pkgs PKGBUILD wl-clipboard (build + package)",
+    "# source top dir \"wl-clipboard-2.2.1\" is stripped by the builder — paths below are flat",
+    "",
+    "meson setup \".\" build \\",
+    "--prefix=/usr \\",
+    "--buildtype=release",
+    "ninja -C build",
+    "",
+    "",
+    "DESTDIR=\"$DESTDIR\" ninja -C build install",
+]
+
+[install]
+post = []
+files = "auto"
+backup = []
