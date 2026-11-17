@@ -1,0 +1,57 @@
+# OpenSSL 4.0 removed SSLv3_method/TLSv1_method/TLSv1_1_method entirely
+# (no OPENSSL_NO_* guard). CPython's _ssl.c guards on the version
+# constants (TLS1_VERSION etc.), which are no longer reliable in 4.x,
+# so the extern declarations and call sites leak an undefined dynamic
+# symbol -> `dlopen` of _ssl.so fails at import. Gate all of them on
+# OPENSSL_VERSION_NUMBER < 4.0.0; no behaviour change on OpenSSL < 4.0.
+#
+# Upstream: CPython still references the removed version-specific
+# SSL_METHOD entry points on OpenSSL 4.x hosts.
+
+--- a/Modules/_ssl.c
++++ b/Modules/_ssl.c
+@@
+ /* OpenSSL API 1.1.0+ does not include version methods */
+-#ifndef OPENSSL_NO_SSL3_METHOD
++#if !defined(OPENSSL_NO_SSL3_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L
+ extern const SSL_METHOD *SSLv3_method(void);
+ #endif
+-#ifndef OPENSSL_NO_TLS1_METHOD
++#if !defined(OPENSSL_NO_TLS1_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L
+ extern const SSL_METHOD *TLSv1_method(void);
+ #endif
+-#ifndef OPENSSL_NO_TLS1_1_METHOD
++#if !defined(OPENSSL_NO_TLS1_1_METHOD) && OPENSSL_VERSION_NUMBER < 0x40000000L
+ extern const SSL_METHOD *TLSv1_1_method(void);
+ #endif
+@@
+-#if defined(SSL3_VERSION) && !defined(OPENSSL_NO_SSL3)
++#if defined(SSL3_VERSION) && !defined(OPENSSL_NO_SSL3) && \
++        OPENSSL_VERSION_NUMBER < 0x40000000L
+     case PY_SSL_VERSION_SSL3:
+         PY_SSL_DEPRECATED("ssl.PROTOCOL_SSLv3 is deprecated", 2, NULL);
+         method = SSLv3_method();
+         break;
+ #endif
+-#if (defined(TLS1_VERSION) && \
++#if (defined(TLS1_VERSION) && \
+         !defined(OPENSSL_NO_TLS1) && \
+-        !defined(OPENSSL_NO_TLS1_METHOD))
++        !defined(OPENSSL_NO_TLS1_METHOD) && \
++        OPENSSL_VERSION_NUMBER < 0x40000000L)
+     case PY_SSL_VERSION_TLS1:
+         PY_SSL_DEPRECATED("ssl.PROTOCOL_TLSv1 is deprecated", 2, NULL);
+         method = TLSv1_method();
+         break;
+ #endif
+-#if (defined(TLS1_1_VERSION) && \
++#if (defined(TLS1_1_VERSION) && \
+         !defined(OPENSSL_NO_TLS1_1) && \
+-        !defined(OPENSSL_NO_TLS1_1_METHOD))
++        !defined(OPENSSL_NO_TLS1_1_METHOD) && \
++        OPENSSL_VERSION_NUMBER < 0x40000000L)
+     case PY_SSL_VERSION_TLS1_1:
+         PY_SSL_DEPRECATED("ssl.PROTOCOL_TLSv1_1 is deprecated", 2, NULL);
+         method = TLSv1_1_method();
+         break;
+ #endif

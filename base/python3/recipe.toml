@@ -9,7 +9,7 @@ build_depends = []
 urls = [
     { url = "https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tar.xz", sha256 = "de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032" },
 ]
-patches = []
+patches = ["patches/python3-openssl4-version-methods.patch"]
 
 [build]
 system = "raw"
