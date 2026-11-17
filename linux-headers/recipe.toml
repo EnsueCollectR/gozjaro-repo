@@ -14,8 +14,8 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "make mrproper",
-    "make headers",
+    "make -j$(nproc) mrproper",
+    "make -j$(nproc) headers",
     "find usr/include -type f ! -name '*.h' -delete",
     "cp -rv usr/include \"$DESTDIR/usr/\"",
 ]

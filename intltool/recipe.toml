@@ -16,8 +16,8 @@ system = "raw"
 steps = [
     "sed -i 's:\\\\\\${:\\\\\\$\\\\{:' intltool-update.in",
     "./configure --prefix=/usr",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

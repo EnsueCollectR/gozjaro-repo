@@ -16,8 +16,8 @@ system = "raw"
 steps = [
     "FORCE_UNSAFE_CONFIGURE=1 ./configure --prefix=/usr \\",
     "    --enable-no-install-program=kill,uptime",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
     "mv -v \"$DESTDIR/usr/bin/chroot\" \"$DESTDIR/usr/sbin/\" 2>/dev/null || true",
 ]
 

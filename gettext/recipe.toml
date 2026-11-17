@@ -15,8 +15,8 @@ patches = []
 system = "raw"
 steps = [
     "./configure --prefix=/usr --disable-static",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
     "chmod -v 0755 \"$DESTDIR/usr/lib/preloadable_libintl.so\" 2>/dev/null || true",
 ]
 

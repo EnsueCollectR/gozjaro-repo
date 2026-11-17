@@ -25,9 +25,9 @@ steps = [
     "touch \"$DESTDIR/usr/bin/passwd\"",
     "./configure --sysconfdir=/etc --disable-static --with-{b,yes}crypt \\",
     "    --without-libbsd --with-group-name-max-length=32",
-    "make",
-    "make exec_prefix=/usr DESTDIR=\"$DESTDIR\" install",
-    "make -C man DESTDIR=\"$DESTDIR\" install-man",
+    "make -j$(nproc)",
+    "make -j$(nproc) exec_prefix=/usr DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc) -C man DESTDIR=\"$DESTDIR\" install-man",
 ]
 
 [install]

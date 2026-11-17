@@ -17,9 +17,9 @@ patches = []
 system = "raw"
 steps = [
     "./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic",
-    "make",
+    "make -j$(nproc)",
     "sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile",
-    "make DESTDIR=\"$DESTDIR\" MANSUFFIX=ssl install",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" MANSUFFIX=ssl install",
 ]
 
 [install]

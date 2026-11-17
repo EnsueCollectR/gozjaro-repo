@@ -18,8 +18,8 @@ steps = [
     "    --enable-shared \\",
     "    --with-system-expat \\",
     "    --enable-optimizations",
-    "make",
-    "make DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc)",
+    "make -j$(nproc) DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]

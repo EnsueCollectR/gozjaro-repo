@@ -16,8 +16,8 @@ system = "raw"
 steps = [
     "sed -i /ARPD/d Makefile",
     "rm -fv man/man8/arpd.8",
-    "make NETNS_RUN_DIR=/run/netns",
-    "make SBINDIR=/usr/sbin DESTDIR=\"$DESTDIR\" install",
+    "make -j$(nproc) NETNS_RUN_DIR=/run/netns",
+    "make -j$(nproc) SBINDIR=/usr/sbin DESTDIR=\"$DESTDIR\" install",
 ]
 
 [install]
