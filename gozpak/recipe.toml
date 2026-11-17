@@ -1,26 +1,27 @@
 [package]
 name = "gozpak"
 version = "6.0.0"
-release = 1
-desc = "Package manager for Gozjaro Linux"
+release = 2
+desc = "Package manager for Gozjaro Linux (Rust)"
 license = "MIT"
 depends = ["curl", "openssl"]
 build_depends = []
 
+# The Rust gozpak ships as a prebuilt x86_64 binary from the
+# Gozjaro/gozpak `stable` release (built on the compile box). The
+# sha256 pin makes the build deterministic: re-publishing `stable`
+# changes these bytes and forces a recipe revision bump.
 [source]
-git = "git+https://github.com/Gozjaro/gozpak#865db2cc4c71fa5fdcd2acf2ddff9232ba871e66"
+urls = [
+    { url = "https://github.com/Gozjaro/gozpak/releases/download/stable/gozpak-x86_64-unknown-linux-gnu", sha256 = "6068e6a8fe74951b86ff915964a55f1f5d9ba8d431844267ba4cb917f98dc774" },
+]
 patches = []
 
 [build]
 system = "raw"
 steps = [
-    "install -Dm755 gozpak \"$DESTDIR/usr/bin/gozpak\"",
-    "# Install extensions",
-    "for f in contrib/gozpak-*; do",
-    "    [ -f \"$f\" ] || continue",
-    "    install -Dm755 \"$f\" \"$DESTDIR/usr/bin/$(basename \"$f\")\"",
-    "done",
-    "# Create default directories",
+    "install -Dm755 gozpak-x86_64-unknown-linux-gnu \"$DESTDIR/usr/bin/gozpak\"",
+    "# default directories",
     "mkdir -p \"$DESTDIR/etc/gozpak\"",
     "mkdir -p \"$DESTDIR/var/db/gozpak/installed\"",
 ]
