@@ -16,7 +16,7 @@ patches = []
 [build]
 system = "raw"
 steps = [
-    "./configure --prefix=/usr \\",
+    "CFLAGS=-O2 -Wno-discarded-qualifiers ./configure --prefix=/usr \\",
     "    --enable-hashes=strong,glibc \\",
     "    --enable-obsolete-api=no \\",
     "    --disable-static \\",
