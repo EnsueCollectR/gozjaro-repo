@@ -1,13 +1,13 @@
 [package]
 name = "meson"
-version = "1.6.1"
+version = "1.12.1"
 release = 1
 depends = ["python3", "ninja", "jinja2", "markupsafe"]
 build_depends = []
 
 [source]
 urls = [
-    { url = "https://github.com/mesonbuild/meson/releases/download/$VERSION/meson-$VERSION.tar.gz", sha256 = "1eca49eb6c26d58bbee67fd3337d8ef557c0804e30a6d16bfdf269db997464de" },
+    { url = "https://github.com/mesonbuild/meson/releases/download/$VERSION/meson-$VERSION.tar.gz", sha256 = "ab0a6ca09f8ef70c564c8241fb5a23957886a0b53fb58412b5e07eaf07dba743" },
 ]
 patches = []
 
