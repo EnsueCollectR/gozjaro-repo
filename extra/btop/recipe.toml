@@ -19,7 +19,7 @@ steps = [
     "# cmake (host 7D12); ncurses from host dev libs",
     "cmake -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release",
     "cmake --build build -j$(nproc)",
-    "cmake --install build --prefix \"$DESTDIR/usr\" --component btop 2>/dev/null || cmake --install build --prefix \"$DESTDIR/usr\"",
+    "cmake --install build --prefix \"$DESTDIR/usr\"",
 ]
 
 [install]
